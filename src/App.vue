@@ -107,6 +107,8 @@ const closeMobileMenu = () => {
 
 html {
   scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -114,6 +116,8 @@ body {
   line-height: 1.7;
   color: var(--black);
   background: var(--white);
+  margin: 0;
+  padding: 0;
 }
 
 #app {
@@ -138,6 +142,8 @@ body {
   z-index: 1000;
   transition: all 0.3s ease;
   width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .navbar {
@@ -149,14 +155,25 @@ body {
   align-items: center;
 }
 
+.nav-brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
 .nav-brand .logo {
   font-size: 1.5rem;
   font-weight: 700;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--primary-blue);
   transition: all 0.3s ease;
+  position: relative;
+  z-index: 1002;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: auto;
+  min-width: 0;
 }
 
 .nav-brand .logo:hover {
@@ -239,7 +256,7 @@ body {
 }
 
 .mobile-menu {
-  display: none;
+  display: block;
   position: fixed;
   top: 80px;
   left: 0;
@@ -248,8 +265,14 @@ body {
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   z-index: 999;
   padding: 2rem;
-  transform: translateY(-100%);
+  transform: translateY(-200%);
   transition: transform 0.3s ease;
+}
+
+@media (min-width: 769px) {
+  .mobile-menu {
+    display: none;
+  }
 }
 
 .mobile-menu.active {
@@ -367,10 +390,6 @@ body {
   .mobile-menu-btn {
     display: flex;
     z-index: 1001;
-  }
-
-  .mobile-menu {
-    display: block;
   }
 
   .nav-brand .logo {
