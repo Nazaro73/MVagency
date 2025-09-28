@@ -1227,11 +1227,15 @@ onMounted(() => {
   }
 
   .hero-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .hero-slogan {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
   }
 
   .container {
@@ -1252,16 +1256,57 @@ onMounted(() => {
   .story-stats {
     flex-direction: row;
     justify-content: space-around;
+    flex-wrap: wrap;
   }
 
   .stat-item {
     flex: 1;
     margin: 0 0.5rem;
+    min-width: 100px;
+    padding: 1.5rem 1rem;
+  }
+
+  .stat-item h4 {
+    font-size: 1.8rem;
+  }
+
+  .stat-item p {
+    font-size: 0.9rem;
   }
 
   .values-grid,
   .team-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Réduction des tailles de texte */
+  .about-section h2,
+  .services-section h2,
+  .contact-section h2,
+  .faq-section h2 {
+    font-size: 2rem;
+  }
+
+  .value-card h4,
+  .service-item h4,
+  .team-member h4 {
+    font-size: 1.2rem;
+  }
+
+  .value-card p,
+  .service-item p,
+  .story-text p,
+  .team-member p,
+  .section-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .faq-item h4 {
+    font-size: 1.1rem;
+  }
+
+  .faq-item p {
+    font-size: 0.9rem;
   }
 
   /* Services Section Mobile */
@@ -1295,6 +1340,104 @@ onMounted(() => {
 
   .whatsapp-section {
     padding: 1.5rem;
+  }
+}
+
+/* Media query pour très petits écrans */
+@media (max-width: 480px) {
+  .hero {
+    padding: 3rem 1rem 2rem;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .hero-slogan {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-description {
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+
+  .story-content {
+    gap: 1.5rem;
+  }
+
+  .story-text h3 {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .story-text p {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .story-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .stat-item {
+    margin: 0;
+    padding: 1.2rem 0.8rem;
+    min-width: auto;
+  }
+
+  .stat-item h4 {
+    font-size: 1.5rem;
+  }
+
+  .stat-item p {
+    font-size: 0.85rem;
+  }
+
+  /* Réduction supplémentaire des tailles de texte pour très petits écrans */
+  .about-section h2,
+  .services-section h2,
+  .contact-section h2,
+  .faq-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .value-card h4,
+  .service-item h4,
+  .team-member h4 {
+    font-size: 1.1rem;
+  }
+
+  .value-card p,
+  .service-item p,
+  .story-text p,
+  .team-member p,
+  .section-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .faq-item h4 {
+    font-size: 1rem;
+  }
+
+  .faq-item p {
+    font-size: 0.8rem;
+  }
+
+  .contact-info h3,
+  .form-card h4 {
+    font-size: 1.2rem;
+  }
+
+  .method-info h5 {
+    font-size: 0.9rem;
+  }
+
+  .method-info p {
+    font-size: 0.8rem;
   }
 }
 </style>

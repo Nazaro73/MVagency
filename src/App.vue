@@ -357,6 +357,7 @@ body {
 @media (max-width: 768px) {
   .navbar {
     padding: 1rem;
+    position: relative;
   }
 
   .desktop-menu {
@@ -365,6 +366,7 @@ body {
 
   .mobile-menu-btn {
     display: flex;
+    z-index: 1001;
   }
 
   .mobile-menu {
@@ -375,10 +377,57 @@ body {
     font-size: 1.2rem;
   }
 
+  .mobile-menu {
+    top: 70px;
+    padding: 1.5rem;
+  }
+
+  .nav-link-mobile {
+    font-size: 1.1rem;
+    padding: 0.8rem 0;
+  }
+
+  .main-content {
+    margin-top: 70px;
+  }
+
   .footer-content {
     padding: 0 1rem;
     grid-template-columns: 1fr;
     text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.8rem;
+  }
+
+  .nav-brand .logo {
+    font-size: 1rem;
+  }
+
+  .mobile-menu-btn {
+    width: 25px;
+    height: 25px;
+  }
+
+  .hamburger-line {
+    height: 2px;
+  }
+
+  .mobile-menu {
+    top: 60px;
+    padding: 1rem;
+  }
+
+  .nav-link-mobile {
+    font-size: 1rem;
+    padding: 0.6rem 0;
+  }
+
+  .main-content {
+    margin-top: 60px;
   }
 }
 </style>
