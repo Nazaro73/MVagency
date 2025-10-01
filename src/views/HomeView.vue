@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const form = ref({
   name: '',
@@ -11,6 +11,8 @@ const form = ref({
 
 const isSubmitting = ref(false)
 const submitted = ref(false)
+const testimonialSlider = ref<HTMLElement>()
+const brandsSlider = ref<HTMLElement>()
 
 const submitForm = async () => {
   isSubmitting.value = true
@@ -33,6 +35,9 @@ const submitForm = async () => {
     }, 3000)
   }, 1500)
 }
+
+let testimonialInterval: number
+let brandInterval: number
 
 // Animation on scroll with staggered delay
 onMounted(() => {
@@ -59,6 +64,42 @@ onMounted(() => {
   document.querySelectorAll('.animate-on-scroll').forEach(el => {
     observer.observe(el)
   })
+
+  // Auto-slider pour les témoignages - toutes les 5 secondes, défilement plus lent
+  if (testimonialSlider.value) {
+    let currentTestimonial = 0
+    const testimonialCards = testimonialSlider.value.querySelectorAll('.testimonial-card')
+
+    testimonialInterval = setInterval(() => {
+      currentTestimonial = (currentTestimonial + 1) % testimonialCards.length
+      const offset = currentTestimonial * -20 // -20% pour chaque slide (5 slides = 100%)
+      testimonialSlider.value!.style.transform = `translateX(${offset}%)`
+    }, 5000) // Augmenté à 5 secondes
+  }
+
+  // Auto-slider pour les marques - défilement continu
+  if (brandsSlider.value) {
+    let brandOffset = 0
+    const brandWidth = 200 // Largeur approximative d'un logo + gap
+
+    brandInterval = setInterval(() => {
+      brandOffset -= 1
+      // Reset quand on a fait défiler 4 logos (pour garder 3 visibles)
+      if (Math.abs(brandOffset) >= brandWidth * 4) {
+        brandOffset = 0
+      }
+      brandsSlider.value!.style.transform = `translateX(${brandOffset}px)`
+    }, 30) // Animation fluide
+  }
+})
+
+onUnmounted(() => {
+  if (testimonialInterval) {
+    clearInterval(testimonialInterval)
+  }
+  if (brandInterval) {
+    clearInterval(brandInterval)
+  }
 })
 </script>
 
@@ -68,19 +109,23 @@ onMounted(() => {
     <section id="accueil" class="hero">
       <div class="hero-background"></div>
       <div class="hero-content">
-        <h1 class="hero-title animate-on-scroll">Muslim Visibility</h1>
-        <p class="hero-slogan animate-on-scroll">Votre succès, notre engagement éthique</p>
-        <p class="hero-description animate-on-scroll">
-          Nous connectons les marques aux influenceurs musulmans avec transparence,
-          respect et authenticité pour des campagnes qui font la différence.
-        </p>
-        <div class="hero-actions animate-on-scroll">
-          <a href="https://wa.me/+33123456789?text=Bonjour%2C%20je%20souhaite%20en%20savoir%20plus%20sur%20vos%20services" class="btn btn-primary" target="_blank">
-            💬 Nous contacter sur WhatsApp
-          </a>
-          <a href="#contact" class="btn btn-secondary">
-            Demander un devis
-          </a>
+        <div class="hero-layout">
+          <div class="hero-text">
+            <h1 class="hero-title animate-on-scroll">Muslim Visibility</h1>
+            <p class="hero-slogan animate-on-scroll">Votre succès, notre engagement éthique</p>
+            <p class="hero-description animate-on-scroll">
+              Nous connectons les marques aux influenceurs musulmans avec transparence,
+              respect et authenticité pour des campagnes qui font la différence.
+            </p>
+          </div>
+          <div class="hero-actions animate-on-scroll">
+            <a href="https://wa.me/+33123456789?text=Bonjour%2C%20je%20souhaite%20en%20savoir%20plus%20sur%20vos%20services" class="btn btn-primary" target="_blank">
+              💬 Nous contacter sur WhatsApp
+            </a>
+            <a href="https://wa.me/+33123456789?text=Bonjour%2C%20je%20souhaite%20demander%20un%20devis" class="btn btn-primary" target="_blank">
+              Demander un devis
+            </a>
+          </div>
         </div>
       </div>
       <div class="hero-particles"></div>
@@ -122,69 +167,217 @@ onMounted(() => {
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
+    <!-- Notre Équipe -->
+    <section class="team-section">
+      <div class="container">
+        <h3>Notre Équipe</h3>
+        <p class="team-intro">
+          Une équipe diverse et expérimentée, unie par la passion de créer des
+          collaborations authentiques et impactantes.
+        </p>
+        <div class="team-grid">
+          <div class="team-member">
+            <div class="member-avatar">👨‍💼</div>
+            <h5>Équipe Direction</h5>
+            <p>Vision stratégique et développement</p>
+          </div>
+          <div class="team-member">
+            <div class="member-avatar">👩‍💻</div>
+            <h5>Équipe Marketing</h5>
+            <p>Créativité et innovation</p>
+          </div>
+          <div class="team-member">
+            <div class="member-avatar">👨‍🤝‍👨</div>
+            <h5>Équipe Relations</h5>
+            <p>Accompagnement et suivi</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- Nos Valeurs -->
-        <div class="values-section">
-          <h3 class="animate-on-scroll">Nos Valeurs</h3>
-          <div class="values-grid">
-            <div class="value-card animate-on-scroll">
-              <div class="value-icon">🤝</div>
-              <h4>Éthique</h4>
-              <p>
-                Nous plaçons l'éthique au cœur de chaque décision, garantissant des
-                collaborations respectueuses et alignées avec les valeurs de chacun.
-              </p>
+    <!-- Nos Valeurs Section -->
+    <section class="values-section">
+      <div class="container">
+        <h2 class="animate-on-scroll">Nos Valeurs</h2>
+        <p class="section-subtitle animate-on-scroll">Les principes qui guident nos actions</p>
+
+        <div class="values-grid">
+          <div class="value-card animate-on-scroll">
+            <div class="value-icon">🤝</div>
+            <h4>Éthique</h4>
+            <p>
+              Nous plaçons l'éthique au cœur de chaque décision, garantissant des
+              collaborations respectueuses et alignées avec les valeurs de chacun.
+            </p>
+          </div>
+          <div class="value-card animate-on-scroll">
+            <div class="value-icon">💎</div>
+            <h4>Transparence</h4>
+            <p>
+              La transparence guide toutes nos actions. Pas de surprises, pas de
+              malentendus, juste une communication claire et honnête.
+            </p>
+          </div>
+          <div class="value-card animate-on-scroll">
+            <div class="value-icon">❤️</div>
+            <h4>Respect</h4>
+            <p>
+              Le respect mutuel est la base de nos relations. Nous honorons la
+              diversité culturelle et les convictions de chaque partenaire.
+            </p>
+          </div>
+          <div class="value-card animate-on-scroll">
+            <div class="value-icon">⭐</div>
+            <h4>Excellence</h4>
+            <p>
+              Nous visons l'excellence dans chaque projet, en offrant un service
+              de qualité supérieure et des résultats mesurables.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Commentaires Section -->
+    <section class="testimonials-section">
+      <div class="container">
+        <h2 class="animate-on-scroll">Ce que disent nos clients</h2>
+        <p class="section-subtitle animate-on-scroll">Leurs témoignages parlent pour nous</p>
+
+        <div class="testimonials-container">
+          <div class="testimonials-slider" ref="testimonialSlider">
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Muslim Visibility a transformé ma carrière d'influenceuse. Grâce à eux, j'ai trouvé des collaborations authentiques qui correspondent parfaitement à mes valeurs. L'équipe est professionnelle et à l'écoute."</p>
+                <div class="testimonial-author">
+                  <div class="author-avatar">👩‍🦱</div>
+                  <div class="author-info">
+                    <h5>Amina L.</h5>
+                    <span>Influenceuse lifestyle</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="value-card animate-on-scroll">
-              <div class="value-icon">💎</div>
-              <h4>Transparence</h4>
-              <p>
-                La transparence guide toutes nos actions. Pas de surprises, pas de
-                malentendus, juste une communication claire et honnête.
-              </p>
+
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"En tant qu'entreprise, nous cherchions des influenceurs authentiques pour promouvoir nos produits halal. Muslim Visibility nous a connectés avec des créateurs parfaits pour notre marque. ROI exceptionnel !"</p>
+                <div class="testimonial-author">
+                  <div class="author-avatar">👨‍💼</div>
+                  <div class="author-info">
+                    <h5>Karim B.</h5>
+                    <span>Directeur Marketing</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="value-card animate-on-scroll">
-              <div class="value-icon">❤️</div>
-              <h4>Respect</h4>
-              <p>
-                Le respect mutuel est la base de nos relations. Nous honorons la
-                diversité culturelle et les convictions de chaque partenaire.
-              </p>
+
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"J'ai enfin trouvé une agence qui comprend mes valeurs ! Les collaborations proposées sont toujours en adéquation avec mon contenu et mon audience. Je recommande vivement Muslim Visibility."</p>
+                <div class="testimonial-author">
+                  <div class="author-avatar">🧕</div>
+                  <div class="author-info">
+                    <h5>Fatima K.</h5>
+                    <span>Content Creator</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="value-card animate-on-scroll">
-              <div class="value-icon">⭐</div>
-              <h4>Excellence</h4>
-              <p>
-                Nous visons l'excellence dans chaque projet, en offrant un service
-                de qualité supérieure et des résultats mesurables.
-              </p>
+
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Transparence, professionnalisme et respect : voilà ce qui définit Muslim Visibility. Ils ont su nous accompagner dans notre stratégie d'influence avec une approche éthique remarquable."</p>
+                <div class="testimonial-author">
+                  <div class="author-avatar">👩‍💻</div>
+                  <div class="author-info">
+                    <h5>Sarah M.</h5>
+                    <span>Responsable Communication</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Muslim Visibility m'a aidé à développer mon audience de manière authentique. Les partenariats qu'ils proposent sont toujours de qualité et respectent mes convictions. Une équipe fantastique !"</p>
+                <div class="testimonial-author">
+                  <div class="author-avatar">👨‍🎨</div>
+                  <div class="author-info">
+                    <h5>Omar T.</h5>
+                    <span>Créateur de contenu</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Notre Équipe -->
-        <div class="team-section">
-          <h3>Notre Équipe</h3>
-          <p class="team-intro">
-            Une équipe diverse et expérimentée, unie par la passion de créer des
-            collaborations authentiques et impactantes.
-          </p>
-          <div class="team-grid">
-            <div class="team-member">
-              <div class="member-avatar">👨‍💼</div>
-              <h5>Équipe Direction</h5>
-              <p>Vision stratégique et développement</p>
+    <!-- Ils nous font confiance Section -->
+    <section class="trusted-brands-section">
+      <div class="container">
+        <h2 class="animate-on-scroll">Ils nous font confiance</h2>
+        <p class="section-subtitle animate-on-scroll">Des marques de renom qui partagent nos valeurs</p>
+
+        <div class="brands-slider-wrapper">
+          <div class="brands-slider" ref="brandsSlider">
+            <div class="brand-logo">
+              <div class="logo-placeholder">
+                <span>🏢</span>
+                <h4>Brand A</h4>
+              </div>
             </div>
-            <div class="team-member">
-              <div class="member-avatar">👩‍💻</div>
-              <h5>Équipe Marketing</h5>
-              <p>Créativité et innovation</p>
+            <div class="brand-logo">
+              <div class="logo-placeholder">
+                <span>🛍️</span>
+                <h4>Brand B</h4>
+              </div>
             </div>
-            <div class="team-member">
-              <div class="member-avatar">👨‍🤝‍👨</div>
-              <h5>Équipe Relations</h5>
-              <p>Accompagnement et suivi</p>
+            <div class="brand-logo">
+              <div class="logo-placeholder">
+                <span>🍽️</span>
+                <h4>Brand C</h4>
+              </div>
+            </div>
+            <div class="brand-logo">
+              <div class="logo-placeholder">
+                <span>👗</span>
+                <h4>Brand D</h4>
+              </div>
+            </div>
+            <div class="brand-logo">
+              <div class="logo-placeholder">
+                <span>💄</span>
+                <h4>Brand E</h4>
+              </div>
+            </div>
+            <div class="brand-logo">
+              <div class="logo-placeholder">
+                <span>📱</span>
+                <h4>Brand F</h4>
+              </div>
+            </div>
+            <div class="brand-logo">
+              <div class="logo-placeholder">
+                <span>🏃‍♂️</span>
+                <h4>Brand G</h4>
+              </div>
+            </div>
+            <div class="brand-logo">
+              <div class="logo-placeholder">
+                <span>🎯</span>
+                <h4>Brand H</h4>
+              </div>
             </div>
           </div>
         </div>
@@ -422,14 +615,18 @@ onMounted(() => {
 }
 
 .hero {
-  background: var(--gradient-primary);
+  background:
+    url('/image.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   color: var(--white);
   padding: 6rem 2rem 4rem;
-  text-align: center;
+  text-align: left;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   scroll-margin-top: 80px;
   position: relative;
   overflow: hidden;
@@ -445,9 +642,25 @@ onMounted(() => {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(circle at 20% 80%, rgba(139, 90, 159, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(74, 144, 226, 0.3) 0%, transparent 50%);
-  animation: float 6s ease-in-out infinite;
+    radial-gradient(ellipse 600px 400px at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 500px 600px at 75% 75%, rgba(255, 255, 255, 0.08) 0%, transparent 65%);
+  animation: modernFloat 25s ease-in-out infinite;
+  filter: blur(3px);
+}
+
+@keyframes modernFloat {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  25% {
+    transform: translate(20px, -15px) scale(1.05);
+  }
+  50% {
+    transform: translate(-10px, 10px) scale(0.98);
+  }
+  75% {
+    transform: translate(15px, -5px) scale(1.02);
+  }
 }
 
 .hero-particles {
@@ -457,55 +670,94 @@ onMounted(() => {
   right: 0;
   bottom: 0;
   background-image:
-    radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.3), transparent),
-    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.2), transparent),
-    radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.4), transparent),
-    radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.2), transparent);
+    radial-gradient(circle 1px at 20% 30%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(circle 0.5px at 60% 20%, rgba(255, 255, 255, 0.2), transparent),
+    radial-gradient(circle 1px at 80% 70%, rgba(255, 255, 255, 0.25), transparent),
+    radial-gradient(circle 0.5px at 30% 80%, rgba(255, 255, 255, 0.15), transparent);
   background-repeat: repeat;
-  background-size: 200px 100px;
-  animation: float 8s ease-in-out infinite reverse;
+  background-size: 400px 300px;
+  animation: particleFloat 30s linear infinite;
+  opacity: 0.6;
 }
 
+@keyframes particleFloat {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
+}
+
+
 .hero-content {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 1400px;
+  margin: 0;
   position: relative;
-  z-index: 2;
+  z-index: 10;
+  padding-left: 4rem;
+  width: 100%;
+}
+
+.hero-layout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  width: 100%;
+}
+
+.hero-text {
+  flex: 1;
+  max-width: 50%;
+  width: 50%;
 }
 
 .hero-title {
-  font-size: 4rem;
+  font-size: 5rem;
   font-weight: 800;
   margin-bottom: 1.5rem;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  color: var(--white);
+  text-shadow: 0 4px 20px rgba(0,0,0,0.3);
   letter-spacing: -0.02em;
   line-height: 1.1;
+  position: relative;
+  z-index: 3;
 }
 
 .hero-slogan {
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: 400;
   margin-bottom: 2rem;
+  color: var(--white);
   opacity: 0.95;
   letter-spacing: 0.01em;
+  position: relative;
+  z-index: 3;
 }
 
 .hero-description {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   margin-bottom: 3rem;
+  color: var(--white);
   opacity: 0.9;
   line-height: 1.7;
-  max-width: 600px;
-  margin-left: auto;
+  max-width: 80%;
+  margin-left: 0;
   margin-right: auto;
   margin-bottom: 3rem;
+  position: relative;
+  z-index: 3;
 }
 
 .hero-actions {
   display: flex;
+  flex-direction: column;
   gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
+  align-items: flex-start;
+  position: relative;
+  z-index: 3;
+  flex-shrink: 0;
 }
 
 .btn {
@@ -538,12 +790,13 @@ onMounted(() => {
 
 .btn-primary {
   background: var(--white);
-  color: var(--primary-blue);
+  color: var(--secondary-blue);
   box-shadow: var(--shadow-md);
 }
 
 .btn-primary:hover {
   background: var(--light-blue);
+  color: var(--secondary-blue);
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
   animation: pulse 0.6s ease-in-out;
@@ -557,7 +810,7 @@ onMounted(() => {
 
 .btn-secondary:hover {
   background: var(--white);
-  color: var(--primary-blue);
+  color: var(--secondary-blue);
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
 }
@@ -569,7 +822,7 @@ onMounted(() => {
 }
 
 .btn-outline:hover {
-  background: var(--primary-blue);
+  background: var(--gradient-primary);
   color: var(--white);
   transform: translateY(-4px);
   box-shadow: var(--shadow-lg);
@@ -628,14 +881,14 @@ onMounted(() => {
 .story-text h3 {
   font-size: 2rem;
   margin-bottom: 1.5rem;
-  color: #333;
+  color: var(--black);
 }
 
 .story-text p {
   font-size: 1.1rem;
   line-height: 1.7;
   margin-bottom: 1.5rem;
-  color: #666;
+  color: var(--medium-gray);
 }
 
 .story-stats {
@@ -694,14 +947,24 @@ onMounted(() => {
 
 
 .values-section {
-  margin-bottom: 4rem;
+  padding: 0;
+  background: var(--white);
+  position: relative;
+  width: 100%;
+  margin: 0;
 }
 
-.values-section h3 {
-  font-size: 2rem;
+.values-section .container {
+  position: relative;
+  z-index: 2;
+  padding: 5rem 2rem;
+}
+
+.values-section h2 {
   text-align: center;
-  margin-bottom: 2rem;
-  color: #333;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--black);
 }
 
 .values-grid {
@@ -799,17 +1062,34 @@ onMounted(() => {
   color: var(--white);
 }
 
+.value-card:hover {
+  background: var(--gradient-primary);
+  color: var(--white);
+}
+
+.team-section {
+  padding: 0;
+  background: var(--light-gray);
+  position: relative;
+  width: 100%;
+  margin: 0;
+}
+
+.team-section .container {
+  padding: 5rem 2rem;
+}
+
 .team-section h3 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   text-align: center;
   margin-bottom: 1rem;
-  color: #333;
+  color: var(--black);
 }
 
 .team-intro {
   text-align: center;
   font-size: 1.1rem;
-  color: #666;
+  color: var(--medium-gray);
   margin-bottom: 2rem;
   max-width: 600px;
   margin-left: auto;
@@ -843,12 +1123,217 @@ onMounted(() => {
 .team-member h5 {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: var(--black);
 }
 
 .team-member p {
-  color: #666;
+  color: var(--medium-gray);
   margin: 0;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  padding: 0;
+  background: var(--light-gray);
+  position: relative;
+  width: 100%;
+  margin: 0;
+}
+
+.testimonials-section .container {
+  position: relative;
+  z-index: 2;
+  padding: 5rem 2rem;
+}
+
+.testimonials-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--black);
+}
+
+.testimonials-container {
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: var(--border-radius-lg);
+  position: relative;
+  background: var(--light-gray);
+
+}
+
+.testimonials-slider {
+  display: flex;
+  transition: transform 1s ease-in-out;
+  width: 500%; /* 5 témoignages */
+}
+
+.testimonial-card {
+  flex: 0 0 20%; /* 100% / 5 témoignages */
+  padding: 0 1rem;
+}
+
+.testimonial-content {
+  background: var(--white);
+  padding: 2.5rem;
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+}
+
+.stars {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #FFD700;
+}
+
+.testimonial-content p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--medium-gray);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.author-avatar {
+  font-size: 3rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--light-blue);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.author-info h5 {
+  margin: 0 0 0.2rem 0;
+  color: var(--black);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.author-info span {
+  color: var(--medium-gray);
+  font-size: 0.9rem;
+}
+
+/* Trusted Brands Section */
+.trusted-brands-section {
+  padding: 0;
+  background: var(--white);
+  position: relative;
+  width: 100%;
+  margin: 0;
+}
+
+.trusted-brands-section .container {
+  position: relative;
+  z-index: 2;
+  padding: 5rem 2rem;
+}
+
+.trusted-brands-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--black);
+}
+
+.brands-slider-wrapper {
+  margin-top: 3rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.brands-slider-wrapper::before,
+.brands-slider-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.brands-slider-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, var(--white), transparent);
+}
+
+.brands-slider-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, var(--white), transparent);
+}
+
+.brands-slider {
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+  transition: transform 0.03s linear;
+}
+
+.brand-logo {
+  flex: 0 0 180px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-placeholder {
+  background: var(--white);
+  border: 2px solid var(--light-gray);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.logo-placeholder:hover {
+  border-color: var(--primary-blue);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-5px);
+}
+
+.logo-placeholder span {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.logo-placeholder h4 {
+  font-size: 0.9rem;
+  color: var(--medium-gray);
+  margin: 0;
+  font-weight: 500;
 }
 
 /* Services Section */
@@ -896,11 +1381,11 @@ onMounted(() => {
 .service-item h4 {
   font-size: 1.3rem;
   margin-bottom: 1rem;
-  color: #2c5aa0;
+  color: var(--black);
 }
 
 .service-item p {
-  color: #666;
+  color: var(--medium-gray);
   line-height: 1.6;
   margin: 0;
 }
@@ -972,7 +1457,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f0f7ff;
+  background: var(--light-blue);
   border-radius: 50%;
 }
 
@@ -1053,7 +1538,7 @@ onMounted(() => {
 .form-card h4 {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
-  color: #333;
+  color: var(--black);
   text-align: center;
 }
 
@@ -1071,7 +1556,7 @@ onMounted(() => {
 
 .form-group label {
   font-weight: 600;
-  color: #333;
+  color: var(--black);
 }
 
 .form-group input,
@@ -1088,7 +1573,7 @@ onMounted(() => {
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #2c5aa0;
+  border-color: var(--primary-blue);
 }
 
 .form-group textarea {
@@ -1097,7 +1582,7 @@ onMounted(() => {
 }
 
 .submit-btn {
-  background: #2c5aa0;
+  background: var(--secondary-blue);
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -1110,7 +1595,7 @@ onMounted(() => {
 }
 
 .submit-btn:hover:not(:disabled) {
-  background: #1e3f73;
+  background: var(--dark-blue);
   transform: translateY(-2px);
 }
 
@@ -1150,18 +1635,18 @@ onMounted(() => {
   background: white;
   padding: 1.5rem;
   border-radius: 15px;
-  border-left: 4px solid #2c5aa0;
+  border-left: 4px solid var(--primary-blue);
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .faq-item h5 {
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: var(--black);
 }
 
 .faq-item p {
-  color: #666;
+  color: var(--medium-gray);
   line-height: 1.6;
   margin: 0;
 }
@@ -1192,8 +1677,8 @@ onMounted(() => {
   right: 0;
   bottom: 0;
   background:
-    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
-    radial-gradient(circle at 70% 80%, rgba(255,255,255,0.05) 0%, transparent 50%);
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.15) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(182, 216, 242, 0.2) 0%, transparent 50%);
 }
 
 
@@ -1226,16 +1711,49 @@ onMounted(() => {
     padding: 4rem 1rem 3rem;
   }
 
+  .hero {
+    background: var(--gradient-primary) !important;
+    background-attachment: scroll !important;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .hero-content {
+    padding-left: 0;
+    margin: 0 auto;
+    max-width: 800px;
+  }
+
+  .hero-layout {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .hero-text {
+    max-width: 100%;
+  }
+
   .hero-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .hero-slogan {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
   }
 
   .hero-description {
-    font-size: 1rem;
+    display: none;
+  }
+
+  .hero-actions {
+    align-items: center;
+    width: 100%;
+  }
+
+  .hero-background,
+  .hero-particles {
+    display: none;
   }
 
   .container {
@@ -1279,6 +1797,10 @@ onMounted(() => {
     grid-template-columns: 1fr;
   }
 
+  .value-card {
+    padding: 1.5rem 1rem;
+  }
+
   /* Réduction des tailles de texte */
   .about-section h2,
   .services-section h2,
@@ -1301,12 +1823,74 @@ onMounted(() => {
     font-size: 0.95rem;
   }
 
+  .value-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+
   .faq-item h4 {
     font-size: 1.1rem;
   }
 
   .faq-item p {
     font-size: 0.9rem;
+  }
+
+  /* Testimonials Section Mobile */
+  .testimonials-section .container {
+    padding: 3rem 1rem;
+  }
+
+  .testimonials-section h2 {
+    font-size: 2rem;
+  }
+
+  .testimonial-content {
+    padding: 2rem;
+  }
+
+  .testimonial-content p {
+    font-size: 1rem;
+  }
+
+  .author-avatar {
+    width: 50px;
+    height: 50px;
+    font-size: 2.5rem;
+  }
+
+  .author-info h5 {
+    font-size: 1rem;
+  }
+
+  .author-info span {
+    font-size: 0.8rem;
+  }
+
+  /* Trusted Brands Section Mobile */
+  .trusted-brands-section .container {
+    padding: 3rem 1rem;
+  }
+
+  .trusted-brands-section h2 {
+    font-size: 2rem;
+  }
+
+  .brand-logo {
+    flex: 0 0 150px;
+    height: 100px;
+  }
+
+  .logo-placeholder {
+    padding: 1rem;
+  }
+
+  .logo-placeholder span {
+    font-size: 1.5rem;
+  }
+
+  .logo-placeholder h4 {
+    font-size: 0.8rem;
   }
 
   /* Services Section Mobile */
@@ -1350,17 +1934,17 @@ onMounted(() => {
   }
 
   .hero-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
     margin-bottom: 1rem;
   }
 
   .hero-slogan {
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin-bottom: 1.5rem;
   }
 
   .hero-description {
-    font-size: 0.9rem;
+    font-size: 1rem;
     margin-bottom: 2rem;
   }
 
@@ -1438,6 +2022,67 @@ onMounted(() => {
 
   .method-info p {
     font-size: 0.8rem;
+  }
+
+  /* Testimonials Section Very Small Mobile */
+  .testimonials-section .container {
+    padding: 2rem 1rem;
+  }
+
+  .testimonials-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .testimonial-content {
+    padding: 1.5rem;
+  }
+
+  .testimonial-content p {
+    font-size: 0.9rem;
+  }
+
+  .stars {
+    font-size: 1.2rem;
+  }
+
+  .author-avatar {
+    width: 45px;
+    height: 45px;
+    font-size: 2rem;
+  }
+
+  .author-info h5 {
+    font-size: 0.9rem;
+  }
+
+  .author-info span {
+    font-size: 0.75rem;
+  }
+
+  /* Trusted Brands Section Very Small Mobile */
+  .trusted-brands-section .container {
+    padding: 2rem 1rem;
+  }
+
+  .trusted-brands-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .brand-logo {
+    flex: 0 0 120px;
+    height: 80px;
+  }
+
+  .logo-placeholder {
+    padding: 0.8rem;
+  }
+
+  .logo-placeholder span {
+    font-size: 1.2rem;
+  }
+
+  .logo-placeholder h4 {
+    font-size: 0.7rem;
   }
 }
 </style>

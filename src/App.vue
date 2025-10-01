@@ -18,7 +18,9 @@ const closeMobileMenu = () => {
     <header class="header">
       <nav class="navbar">
         <div class="nav-brand">
-          <h1 class="logo">Muslim Visibility</h1>
+          <img src="/logo.png" alt="Muslim Visibility" class="logo-img">
+          <h1 class="logo">MV</h1>
+          <span class="logo-full">Muslim Visibility</span>
         </div>
 
         <!-- Desktop Menu -->
@@ -84,23 +86,29 @@ const closeMobileMenu = () => {
 }
 
 :root {
-  /* Nouvelle palette de couleurs moderne */
-  --primary-blue: #4A90E2;
-  --light-blue: #E3F2FD;
-  --dark-blue: #2171B5;
-  --violet: #8B5A9F;
-  --light-violet: #F3E8FF;
-  --dark-violet: #6B46C1;
-  --black: #1A1A1A;
-  --dark-gray: #2D3748;
-  --medium-gray: #718096;
-  --light-gray: #EDF2F7;
-  --white: #FFFFFF;
-  --gradient-primary: linear-gradient(135deg, var(--primary-blue) 0%, var(--violet) 100%);
-  --gradient-secondary: linear-gradient(135deg, var(--light-blue) 0%, var(--light-violet) 100%);
-  --shadow-sm: 0 2px 8px rgba(74, 144, 226, 0.1);
-  --shadow-md: 0 8px 25px rgba(74, 144, 226, 0.15);
-  --shadow-lg: 0 20px 40px rgba(74, 144, 226, 0.2);
+  /* Palette moderne bleu ciel personnalisée */
+  --primary-blue: #B6D8F2;  /* Bleu ciel principal */
+  --secondary-blue: #5784BA; /* Bleu secondaire */
+  --light-blue: #E8F2FB;    /* Bleu très clair */
+  --dark-blue: #4A6B94;     /* Bleu plus foncé */
+  --accent-blue: #3D5F8A;   /* Bleu accent foncé */
+  --black: #1a1a1a;         /* Noir profond */
+  --dark-gray: #2D3748;     /* Gris foncé */
+  --medium-gray: #64748b;   /* Gris moyen */
+  --light-gray: #f8fafc;    /* Gris très clair */
+  --white: #ffffff;         /* Blanc pur */
+
+  /* Gradients avec nouvelle palette */
+  --gradient-primary: linear-gradient(135deg, var(--secondary-blue) 0%, var(--primary-blue) 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--light-blue) 0%, var(--white) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--dark-blue) 0%, var(--accent-blue) 100%);
+
+  /* Ombres avec teinte bleu personnalisée */
+  --shadow-sm: 0 2px 8px rgba(182, 216, 242, 0.15);
+  --shadow-md: 0 8px 25px rgba(87, 132, 186, 0.2);
+  --shadow-lg: 0 20px 40px rgba(87, 132, 186, 0.25);
+
+  /* Rayons de bordure */
   --border-radius: 16px;
   --border-radius-lg: 24px;
 }
@@ -158,26 +166,48 @@ body {
 .nav-brand {
   display: flex;
   align-items: center;
+  gap: 0.5rem;
   flex-shrink: 0;
-  overflow: hidden;
+  position: relative;
+  min-width: 250px;
+}
+
+.logo-img {
+  height: 50px;
+  width: auto;
+  transition: all 0.3s ease;
+  z-index: 1002;
 }
 
 .nav-brand .logo {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--primary-blue);
+  color: var(--secondary-blue);
   transition: all 0.3s ease;
   position: relative;
   z-index: 1002;
   white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  width: auto;
-  min-width: 0;
 }
 
-.nav-brand .logo:hover {
-  transform: scale(1.05);
+.logo-full {
+  position: absolute;
+  left: 60px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--secondary-blue);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1002;
+}
+
+.nav-brand:hover .logo {
+  opacity: 0;
+}
+
+.nav-brand:hover .logo-full {
+  opacity: 1;
 }
 
 .nav-menu {
@@ -209,7 +239,7 @@ body {
 }
 
 .nav-link:hover {
-  color: var(--primary-blue);
+  color: var(--secondary-blue);
   transform: translateY(-2px);
 }
 
@@ -218,7 +248,7 @@ body {
 }
 
 .nav-link.router-link-active {
-  color: var(--primary-blue);
+  color: var(--secondary-blue);
   background: var(--light-blue);
 }
 
@@ -392,7 +422,16 @@ body {
     z-index: 1001;
   }
 
+  .logo-img {
+    height: 40px;
+  }
+
   .nav-brand .logo {
+    font-size: 1.2rem;
+  }
+
+  .logo-full {
+    left: 50px;
     font-size: 1.2rem;
   }
 
@@ -422,7 +461,16 @@ body {
     padding: 0.8rem;
   }
 
+  .logo-img {
+    height: 35px;
+  }
+
   .nav-brand .logo {
+    font-size: 1rem;
+  }
+
+  .logo-full {
+    left: 45px;
     font-size: 1rem;
   }
 
