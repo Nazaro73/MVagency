@@ -627,10 +627,6 @@ onUnmounted(() => {
               </div>
               <div class="feature-item">
                 <span class="feature-icon">✅</span>
-                <span>Forte visibilité et ciblage</span>
-              </div>
-              <div class="feature-item">
-                <span class="feature-icon">✅</span>
                 <span>Idéal pour les promotions, offres spéciales ou événements particuliers</span>
               </div>
               <div class="feature-item">
@@ -2709,7 +2705,7 @@ onUnmounted(() => {
   }
 
   .offer-card {
-    padding: 1.5rem;
+    padding: 1rem;
     min-width: calc(100% - 40px);
     max-width: calc(100% - 40px);
     flex-shrink: 0;
@@ -2721,16 +2717,53 @@ onUnmounted(() => {
     transform: scale(1);
   }
 
+  .offer-header {
+    margin-bottom: 1rem;
+  }
+
   .offer-header h3 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .offer-description {
+    margin-bottom: 1rem;
+  }
+
+  .offer-intro {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .offer-features {
+    margin-bottom: 1rem;
   }
 
   .feature-item {
-    gap: 0.5rem;
+    gap: 0.4rem;
+    margin-bottom: 0.3rem;
+    padding: 0.15rem;
   }
 
   .feature-item span:last-child {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
+
+  .feature-icon {
+    font-size: 0.95rem;
+  }
+
+  .offer-footer {
+    padding-top: 1rem;
+  }
+
+  .offer-meta {
+    gap: 0.5rem;
+  }
+
+  .meta-item {
+    font-size: 0.85rem;
   }
 
   .offers-cta .btn {
@@ -2965,36 +2998,69 @@ onUnmounted(() => {
   }
 
   .offer-card {
-    padding: 1.2rem;
+    padding: 0.8rem;
     min-width: calc(100% - 30px);
     max-width: calc(100% - 30px);
     margin: 0 15px;
   }
 
+  .offer-header {
+    margin-bottom: 0.8rem;
+  }
+
   .offer-header h3 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.2rem;
   }
 
   .offer-badge {
-    font-size: 0.75rem;
-    padding: 0.2rem 0.6rem;
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
   }
 
   .offer-badge-featured {
-    font-size: 0.8rem;
-    padding: 0.3rem 0.8rem;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.7rem;
+  }
+
+  .offer-description {
+    margin-bottom: 0.8rem;
   }
 
   .offer-intro {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .offer-features {
+    margin-bottom: 0.8rem;
+  }
+
+  .feature-item {
+    margin-bottom: 0.25rem;
+    padding: 0.1rem;
+    gap: 0.3rem;
   }
 
   .feature-item span:last-child {
+    font-size: 0.8rem;
+    line-height: 1.25;
+  }
+
+  .feature-icon {
     font-size: 0.85rem;
   }
 
+  .offer-footer {
+    padding-top: 0.8rem;
+  }
+
+  .offer-meta {
+    gap: 0.4rem;
+  }
+
   .meta-item {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 }
 </style>
