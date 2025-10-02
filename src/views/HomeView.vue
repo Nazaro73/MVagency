@@ -2600,6 +2600,9 @@ onUnmounted(() => {
     justify-content: center;
     box-shadow: var(--shadow-md);
     transition: all 0.3s ease;
+    line-height: 1;
+    padding: 0;
+    margin: 0;
   }
 
   .carousel-arrow:hover {
@@ -2912,6 +2915,7 @@ onUnmounted(() => {
     width: 35px;
     height: 35px;
     font-size: 1.8rem;
+    line-height: 1;
   }
 
   .carousel-arrow-left {
