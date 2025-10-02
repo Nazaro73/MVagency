@@ -426,11 +426,11 @@ body {
   }
 
   .hamburger-line.active:nth-child(1) {
-    transform: rotate(45deg) translateY(7px);
+    transform: rotate(45deg) translateY(14px);
   }
 
   .hamburger-line.active:nth-child(3) {
-    transform: rotate(-45deg) translateY(-7px);
+    transform: rotate(-45deg) translateY(-14px);
   }
 
   .logo-img {
@@ -494,14 +494,7 @@ body {
     height: 2px;
   }
 
-  .hamburger-line.active:nth-child(1) {
-    transform: rotate(45deg) translateY(6px);
-  }
-
-  .hamburger-line.active:nth-child(3) {
-    transform: rotate(-45deg) translateY(-6px);
-  }
-
+  
   .mobile-menu {
     top: 60px;
     padding: 1rem;
