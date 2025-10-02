@@ -88,27 +88,27 @@ const closeMobileMenu = () => {
 }
 
 :root {
-  /* Palette moderne violet/mauve personnalisée */
-  --primary-blue: #D4A5FF;  /* Violet clair principal */
-  --secondary-blue: #9333EA; /* Violet secondaire */
-  --light-blue: #F3E8FF;    /* Violet très clair */
-  --dark-blue: #7C3AED;     /* Violet plus foncé */
-  --accent-blue: #6B21A8;   /* Violet accent foncé */
+  /* Palette moderne dégradé bleu foncé vers violet */
+  --primary-blue: #A78BFA;  /* Violet clair */
+  --secondary-blue: #6366F1; /* Bleu indigo */
+  --light-blue: #E0E7FF;    /* Bleu lavande très clair */
+  --dark-blue: #1E3A8A;     /* Bleu foncé */
+  --accent-blue: #7C3AED;   /* Violet accent */
   --black: #1a1a1a;         /* Noir profond */
   --dark-gray: #2D3748;     /* Gris foncé */
   --medium-gray: #64748b;   /* Gris moyen */
   --light-gray: #f8fafc;    /* Gris très clair */
   --white: #ffffff;         /* Blanc pur */
 
-  /* Gradients avec nouvelle palette violet */
-  --gradient-primary: linear-gradient(135deg, #9333EA 0%, #D4A5FF 100%);
-  --gradient-secondary: linear-gradient(135deg, #F3E8FF 0%, #ffffff 100%);
-  --gradient-accent: linear-gradient(135deg, #7C3AED 0%, #6B21A8 100%);
+  /* Gradients bleu foncé vers violet */
+  --gradient-primary: linear-gradient(135deg, #1E3A8A 0%, #7C3AED 100%);
+  --gradient-secondary: linear-gradient(135deg, #E0E7FF 0%, #ffffff 100%);
+  --gradient-accent: linear-gradient(135deg, #1E40AF 0%, #6366F1 100%);
 
-  /* Ombres avec teinte violet personnalisée */
-  --shadow-sm: 0 2px 8px rgba(147, 51, 234, 0.15);
-  --shadow-md: 0 8px 25px rgba(147, 51, 234, 0.2);
-  --shadow-lg: 0 20px 40px rgba(147, 51, 234, 0.25);
+  /* Ombres avec teinte bleu-violet */
+  --shadow-sm: 0 2px 8px rgba(30, 58, 138, 0.15);
+  --shadow-md: 0 8px 25px rgba(99, 102, 241, 0.2);
+  --shadow-lg: 0 20px 40px rgba(124, 58, 237, 0.25);
 
   /* Rayons de bordure */
   --border-radius: 16px;
