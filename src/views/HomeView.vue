@@ -2596,7 +2596,6 @@ onUnmounted(() => {
     font-weight: bold;
     cursor: pointer;
     z-index: 10;
-    align-items: center;
     justify-content: center;
     box-shadow: var(--shadow-md);
     transition: all 0.3s ease;
