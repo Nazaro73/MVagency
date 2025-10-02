@@ -184,7 +184,10 @@ body {
 .nav-brand .logo {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--secondary-blue);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   transition: all 0.3s ease;
   position: relative;
   z-index: 1002;
@@ -197,7 +200,10 @@ body {
   left: 60px;
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--secondary-blue);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
