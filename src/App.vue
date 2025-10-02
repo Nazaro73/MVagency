@@ -18,8 +18,8 @@ const closeMobileMenu = () => {
     <header class="header">
       <nav class="navbar">
         <div class="nav-brand">
-          <img src="/logo.png" alt="Muslim Visibility" class="logo-img">
-          <h1 class="logo">MV</h1>
+          <img src="/logo.png" alt="Muslim Visibility - Agence Marketing d'Influence" class="logo-img">
+          <span class="logo">MV</span>
           <span class="logo-full">Muslim Visibility</span>
         </div>
 
@@ -27,6 +27,7 @@ const closeMobileMenu = () => {
         <div class="nav-menu desktop-menu">
           <a href="#accueil" class="nav-link" @click="closeMobileMenu">Accueil</a>
           <a href="#about" class="nav-link" @click="closeMobileMenu">À propos</a>
+          <a href="#offres" class="nav-link" @click="closeMobileMenu">Nos offres</a>
           <a href="#contact" class="nav-link" @click="closeMobileMenu">Contact</a>
         </div>
 
@@ -41,6 +42,7 @@ const closeMobileMenu = () => {
         <div class="mobile-menu" :class="{ active: mobileMenuOpen }">
           <a href="#accueil" class="nav-link-mobile" @click="closeMobileMenu">Accueil</a>
           <a href="#about" class="nav-link-mobile" @click="closeMobileMenu">À propos</a>
+          <a href="#offres" class="nav-link-mobile" @click="closeMobileMenu">Nos offres</a>
           <a href="#contact" class="nav-link-mobile" @click="closeMobileMenu">Contact</a>
         </div>
       </nav>
@@ -187,6 +189,7 @@ body {
   position: relative;
   z-index: 1002;
   white-space: nowrap;
+  display: inline-block;
 }
 
 .logo-full {

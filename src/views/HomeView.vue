@@ -14,6 +14,52 @@ const submitted = ref(false)
 const testimonialSlider = ref<HTMLElement>()
 const brandsSlider = ref<HTMLElement>()
 
+// Système de filtrage des offres
+const activeOfferCategory = ref('publicite')
+
+// Système de carrousel pour mobile
+const currentSlidePublicite = ref(0)
+const currentSlideAbonnement = ref(0)
+const currentSlidePrestations = ref(0)
+
+const scrollToSlide = (category: string, direction: 'next' | 'prev') => {
+  const container = document.querySelector(`[data-category="${category}"]`) as HTMLElement
+  if (!container) return
+
+  const cards = container.querySelectorAll('.offer-card')
+  const cardWidth = (cards[0] as HTMLElement).offsetWidth
+  const gap = 24 // 1.5rem = 24px
+
+  let currentSlide = 0
+  if (category === 'publicite') {
+    currentSlide = currentSlidePublicite.value
+  } else if (category === 'abonnement') {
+    currentSlide = currentSlideAbonnement.value
+  } else if (category === 'prestations') {
+    currentSlide = currentSlidePrestations.value
+  }
+
+  if (direction === 'next') {
+    currentSlide = Math.min(currentSlide + 1, cards.length - 1)
+  } else {
+    currentSlide = Math.max(currentSlide - 1, 0)
+  }
+
+  if (category === 'publicite') {
+    currentSlidePublicite.value = currentSlide
+  } else if (category === 'abonnement') {
+    currentSlideAbonnement.value = currentSlide
+  } else if (category === 'prestations') {
+    currentSlidePrestations.value = currentSlide
+  }
+
+  const scrollPosition = currentSlide * (cardWidth + gap)
+  container.scrollTo({
+    left: scrollPosition,
+    behavior: 'smooth'
+  })
+}
+
 const submitForm = async () => {
   isSubmitting.value = true
 
@@ -105,6 +151,76 @@ onUnmounted(() => {
 
 <template>
   <div class="home">
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Muslim Visibility",
+      "alternateName": "MV Agency",
+      "url": "https://m-vagency.vercel.app",
+      "logo": "https://m-vagency.vercel.app/logo.png",
+      "description": "Agence de marketing d'influence spécialisée dans la communauté musulmane. Campagnes publicitaires sur Instagram, TikTok et Facebook.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "FR"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+33-1-23-45-67-89",
+        "contactType": "customer service",
+        "availableLanguage": ["French", "Arabic"]
+      },
+      "sameAs": [
+        "https://www.instagram.com/muslimvisibility",
+        "https://www.facebook.com/muslimvisibility"
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "reviewCount": "50"
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Marketing d'Influence",
+      "provider": {
+        "@type": "Organization",
+        "name": "Muslim Visibility"
+      },
+      "areaServed": "FR",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Nos Formules Publicitaires",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "OneShot",
+              "description": "Formule économique pour tester la publicité"
+            },
+            "price": "10",
+            "priceCurrency": "EUR"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Short Campaign",
+              "description": "Campagne publicitaire courte durée"
+            },
+            "price": "80",
+            "priceCurrency": "EUR"
+          }
+        ]
+      }
+    }
+    </script>
     <!-- Hero Section -->
     <section id="accueil" class="hero">
       <div class="hero-background"></div>
@@ -114,8 +230,7 @@ onUnmounted(() => {
             <h1 class="hero-title animate-on-scroll">Muslim Visibility</h1>
             <p class="hero-slogan animate-on-scroll">Votre succès, notre engagement éthique</p>
             <p class="hero-description animate-on-scroll">
-              Nous connectons les marques aux influenceurs musulmans avec transparence,
-              respect et authenticité pour des campagnes qui font la différence.
+              Votre entreprise mérite d'être vue. Muslim Visibility est là pour ça.
             </p>
           </div>
           <div class="hero-actions animate-on-scroll">
@@ -137,33 +252,32 @@ onUnmounted(() => {
         <h2 class="animate-on-scroll">À propos de Muslim Visibility</h2>
         <p class="section-subtitle animate-on-scroll">L'agence qui révolutionne le marketing d'influence éthique</p>
 
-        <!-- Notre Histoire -->
+        <!-- Qui sommes-nous -->
         <div class="story-content">
           <div class="story-text">
-            <h3>Notre Histoire</h3>
+            <h3>Qui sommes-nous</h3>
             <p>
-              Muslim Visibility est née d'une vision : créer un pont authentique entre les marques
-              et la communauté musulmane. Fondée par une équipe passionnée, notre agence s'est
-              rapidement imposée comme un acteur incontournable du marketing d'influence éthique.
+              Nous accompagnons les entrepreneurs et commerçants souhaitant atteindre efficacement la communauté musulmane.
             </p>
             <p>
-              Depuis nos débuts, nous avons accompagné des dizaines d'influenceurs et de marques
-              dans des collaborations fructueuses, toujours dans le respect des valeurs et de
-              l'authenticité qui nous sont chères.
+              Nous travaillons en collaboration avec des influenceurs et des pages à forte visibilité, ciblant spécifiquement la communauté musulmane sur Instagram, mais également sur Facebook, TikTok et d'autres plateformes.
+            </p>
+            <p>
+              Grâce à ces partenariats, nous offrons des campagnes publicitaires performantes et un marketing d'influence éthique pour maximiser l'impact de vos actions.
             </p>
           </div>
           <div class="story-stats">
             <div class="stat-item">
-              <h4>100+</h4>
-              <p>Influenceurs accompagnés</p>
+              <h4>+40</h4>
+              <p>Partenaires influents</p>
             </div>
             <div class="stat-item">
-              <h4>50+</h4>
-              <p>Marques partenaires</p>
+              <h4>+4M</h4>
+              <p>Visibilité cumulée</p>
             </div>
             <div class="stat-item">
-              <h4>2M+</h4>
-              <p>Portée cumulée</p>
+              <h4>+700</h4>
+              <p>Publicités réalisées</p>
             </div>
           </div>
         </div>
@@ -397,6 +511,362 @@ onUnmounted(() => {
             <h4>Pour les Entreprises</h4>
             <p>Atteignez une audience engagée grâce à des collaborations authentiques et respectueuses.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nos Offres Section -->
+    <section id="offres" class="offers-section">
+      <div class="container">
+        <h2 class="animate-on-scroll">Nos Offres</h2>
+        <p class="section-subtitle animate-on-scroll">
+          Choisissez la formule adaptée à vos besoins et donnez de la visibilité à votre projet grâce à Muslim Visibility.
+        </p>
+
+        <!-- Filter Buttons -->
+        <div class="offers-filter">
+          <button
+            class="filter-btn"
+            :class="{ active: activeOfferCategory === 'publicite' }"
+            @click="activeOfferCategory = 'publicite'"
+          >
+            📢 Formules Publicitaires
+          </button>
+          <button
+            class="filter-btn"
+            :class="{ active: activeOfferCategory === 'abonnement' }"
+            @click="activeOfferCategory = 'abonnement'"
+          >
+            ⭐ Abonnements
+          </button>
+          <button
+            class="filter-btn"
+            :class="{ active: activeOfferCategory === 'prestations' }"
+            @click="activeOfferCategory = 'prestations'"
+          >
+            🎨 Autres Prestations
+          </button>
+        </div>
+
+        <!-- Formules Publicitaires -->
+        <div class="offers-carousel-container">
+          <button
+            class="carousel-arrow carousel-arrow-left"
+            @click="scrollToSlide('publicite', 'prev')"
+            v-show="activeOfferCategory === 'publicite' && currentSlidePublicite > 0"
+          >
+            ‹
+          </button>
+
+          <div
+            v-show="activeOfferCategory === 'publicite'"
+            class="offers-grid"
+            data-category="publicite"
+          >
+          <!-- OneShot -->
+          <div class="offer-card animate-on-scroll">
+            <div class="offer-header">
+              <h3>OneShot</h3>
+              <div class="offer-badge">Test ponctuel</div>
+            </div>
+            <div class="offer-description">
+              <p class="offer-intro">
+                La formule la plus économique, idéale pour tester la publicité de votre produit ou service.
+              </p>
+            </div>
+            <div class="offer-features">
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>1 story chez un(e) partenaire ou influenceur(se)</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Test ponctuel sans engagement</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Idéal pour découvrir l'impact d'une publicité ciblée</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Accessible dès 10 €</span>
+              </div>
+            </div>
+            <div class="offer-footer">
+              <div class="offer-meta">
+                <div class="meta-item">
+                  <strong>Durée :</strong> ponctuelle
+                </div>
+                <div class="meta-item">
+                  <strong>Engagement :</strong> sans engagement
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Short Campaign -->
+          <div class="offer-card animate-on-scroll featured">
+            <div class="offer-badge-featured">Populaire</div>
+            <div class="offer-header">
+              <h3>Short Campaign</h3>
+              <div class="offer-badge">Lancement rapide</div>
+            </div>
+            <div class="offer-description">
+              <p class="offer-intro">
+                Idéal pour un lancement rapide, une mise en avant ponctuelle ou une promotion en cours.
+              </p>
+            </div>
+            <div class="offer-features">
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Diffusion de votre publicité en story Instagram</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Possible aussi sur Snapchat, TikTok ou autres réseaux (sur demande et devis personnalisé)</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Forte visibilité et ciblage</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Idéal pour les promotions, offres spéciales ou événements particuliers</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Accessible dès 80 € de budget</span>
+              </div>
+            </div>
+            <div class="offer-footer">
+              <div class="offer-meta">
+                <div class="meta-item">
+                  <strong>Durée :</strong> campagne courte (quelques jours à 2 semaines)
+                </div>
+                <div class="meta-item">
+                  <strong>Engagement :</strong> sans engagement
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <button
+            class="carousel-arrow carousel-arrow-right"
+            @click="scrollToSlide('publicite', 'next')"
+            v-show="activeOfferCategory === 'publicite' && currentSlidePublicite < 1"
+          >
+            ›
+          </button>
+        </div>
+
+        <!-- Abonnements -->
+        <div class="offers-carousel-container">
+          <button
+            class="carousel-arrow carousel-arrow-left"
+            @click="scrollToSlide('abonnement', 'prev')"
+            v-show="activeOfferCategory === 'abonnement' && currentSlideAbonnement > 0"
+          >
+            ‹
+          </button>
+
+          <div
+            v-show="activeOfferCategory === 'abonnement'"
+            class="offers-grid"
+            data-category="abonnement"
+          >
+          <!-- ABO+ -->
+          <div class="offer-card animate-on-scroll">
+            <div class="offer-header">
+              <h3>ABO+</h3>
+              <div class="offer-badge">Accompagnement complet</div>
+            </div>
+            <div class="offer-description">
+              <p class="offer-intro">
+                Un accompagnement complet et régulier pour booster votre présence en ligne.
+              </p>
+            </div>
+            <div class="offer-features">
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>2 posts par mois</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>5 stories par mois</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Création visuelle offerte</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Scripts stratégiques optimisés offerts</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Rapport d'analyse mensuel</span>
+              </div>
+            </div>
+            <div class="offer-footer">
+              <div class="offer-meta">
+                <div class="meta-item">
+                  <strong>Durée :</strong> 3 mois minimum
+                </div>
+                <div class="meta-item">
+                  <strong>Engagement :</strong> 3 mois (paiement flexible possible)
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ABO FLEX -->
+          <div class="offer-card animate-on-scroll">
+            <div class="offer-header">
+              <h3>ABO FLEX</h3>
+              <div class="offer-badge">Formule flexible</div>
+            </div>
+            <div class="offer-description">
+              <p class="offer-intro">
+                La formule flexible pour gérer plusieurs comptes selon vos besoins.
+              </p>
+            </div>
+            <div class="offer-features">
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Même base que l'ABO+</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Liberté de répartir sur 1, 2 ou 3 comptes</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Toujours avec engagement 3 mois</span>
+              </div>
+            </div>
+            <div class="offer-footer">
+              <div class="offer-meta">
+                <div class="meta-item">
+                  <strong>Durée :</strong> 3 mois minimum
+                </div>
+                <div class="meta-item">
+                  <strong>Engagement :</strong> 3 mois (répartition au choix du client)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <button
+            class="carousel-arrow carousel-arrow-right"
+            @click="scrollToSlide('abonnement', 'next')"
+            v-show="activeOfferCategory === 'abonnement' && currentSlideAbonnement < 1"
+          >
+            ›
+          </button>
+        </div>
+
+        <!-- Autres Prestations -->
+        <div class="offers-carousel-container">
+          <button
+            class="carousel-arrow carousel-arrow-left"
+            @click="scrollToSlide('prestations', 'prev')"
+            v-show="activeOfferCategory === 'prestations' && currentSlidePrestations > 0"
+          >
+            ‹
+          </button>
+
+          <div
+            v-show="activeOfferCategory === 'prestations'"
+            class="offers-grid"
+            data-category="prestations"
+          >
+          <!-- Community Management -->
+          <div class="offer-card animate-on-scroll">
+            <div class="offer-header">
+              <h3>Community Management</h3>
+              <div class="offer-badge">Gestion complète</div>
+            </div>
+            <div class="offer-description">
+              <p class="offer-intro">
+                Confiez-nous la gestion de vos réseaux sociaux pour une présence régulière et professionnelle.
+              </p>
+            </div>
+            <div class="offer-features">
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Gestion de vos comptes (posts, stories, interaction)</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Stratégie éditoriale adaptée à vos objectifs</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Suivi et optimisation des performances</span>
+              </div>
+            </div>
+            <div class="offer-footer">
+              <div class="offer-meta">
+                <div class="meta-item">
+                  <strong>Tarif :</strong> sur devis (selon vos besoins et vos objectifs)
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Création Visuelle -->
+          <div class="offer-card animate-on-scroll">
+            <div class="offer-header">
+              <h3>Création Visuelle</h3>
+              <div class="offer-badge">Design professionnel</div>
+            </div>
+            <div class="offer-description">
+              <p class="offer-intro">
+                Des visuels attractifs et professionnels pour mettre en valeur vos produits et services.
+              </p>
+            </div>
+            <div class="offer-features">
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Flyers</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Réels Instagram</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Carrousels</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Autres visuels adaptés aux réseaux sociaux</span>
+              </div>
+            </div>
+            <div class="offer-footer">
+              <div class="offer-meta">
+                <div class="meta-item">
+                  <strong>Tarif :</strong> à partir de 20 € / visuel
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <button
+            class="carousel-arrow carousel-arrow-right"
+            @click="scrollToSlide('prestations', 'next')"
+            v-show="activeOfferCategory === 'prestations' && currentSlidePrestations < 1"
+          >
+            ›
+          </button>
+        </div>
+
+        <!-- CTA Button -->
+        <div class="offers-cta">
+          <a href="#contact" class="btn btn-primary">Demander un devis personnalisé</a>
         </div>
       </div>
     </section>
@@ -1345,7 +1815,6 @@ onUnmounted(() => {
   margin: 0;
 }
 
-
 .services-section .container {
   position: relative;
   z-index: 2;
@@ -1388,6 +1857,249 @@ onUnmounted(() => {
   color: var(--medium-gray);
   line-height: 1.6;
   margin: 0;
+}
+
+/* Offers Section */
+.offers-section {
+  padding: 0;
+  background: var(--light-gray);
+  position: relative;
+  width: 100%;
+  margin: 0;
+  scroll-margin-top: 80px;
+}
+
+.offers-section .container {
+  position: relative;
+  z-index: 2;
+  padding: 5rem 2rem;
+}
+
+.offers-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--black);
+}
+
+/* Carousel Arrows - Hidden on Desktop */
+.offers-carousel-container {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-arrow {
+  display: none;
+}
+
+/* Filter Buttons */
+.offers-filter {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0 3rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 0.8rem 1.8rem;
+  border: 2px solid var(--primary-blue);
+  background: var(--white);
+  color: var(--secondary-blue);
+  border-radius: var(--border-radius-lg);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.filter-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-primary);
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.filter-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  color: var(--white);
+  border-color: var(--secondary-blue);
+}
+
+.filter-btn:hover::before {
+  left: 0;
+}
+
+.filter-btn.active {
+  background: var(--gradient-primary);
+  color: var(--white);
+  border-color: var(--secondary-blue);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+.offers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.offer-card {
+  background: var(--white);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid transparent;
+}
+
+.offer-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+}
+
+.offer-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-blue);
+}
+
+.offer-card.featured {
+  border-color: var(--secondary-blue);
+  transform: scale(1.02);
+}
+
+.offer-card.featured:hover {
+  transform: scale(1.05) translateY(-10px);
+}
+
+.offer-badge-featured {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--gradient-primary);
+  color: var(--white);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  z-index: 10;
+}
+
+.offer-header {
+  margin-bottom: 1.5rem;
+}
+
+.offer-header h3 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.offer-badge {
+  display: inline-block;
+  background: var(--light-blue);
+  color: var(--secondary-blue);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.offer-description {
+  margin-bottom: 1.5rem;
+}
+
+.offer-intro {
+  color: var(--medium-gray);
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.offer-features {
+  flex: 1;
+  margin-bottom: 1.5rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+  background: var(--light-blue);
+}
+
+.feature-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.feature-item span:last-child {
+  color: var(--dark-gray);
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.offer-footer {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--light-gray);
+}
+
+.offer-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.meta-item {
+  color: var(--medium-gray);
+  font-size: 0.9rem;
+}
+
+.meta-item strong {
+  color: var(--black);
+  margin-right: 0.3rem;
+}
+
+.offers-cta {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.offers-cta .btn {
+  font-size: 1.1rem;
+  padding: 1.2rem 2.5rem;
 }
 
 /* Contact Section */
@@ -1898,6 +2610,134 @@ onUnmounted(() => {
     grid-template-columns: 1fr;
   }
 
+  /* Offers Section Mobile */
+  .offers-section .container {
+    padding: 3rem 1rem;
+  }
+
+  .offers-section h2 {
+    font-size: 2rem;
+  }
+
+  .offers-filter {
+    flex-direction: row;
+    gap: 0.8rem;
+    margin: 1.5rem 0 2rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    justify-content: flex-start;
+    padding: 0.5rem 0;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-blue) var(--light-gray);
+  }
+
+  .offers-filter::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .offers-filter::-webkit-scrollbar-track {
+    background: var(--light-gray);
+    border-radius: 10px;
+  }
+
+  .offers-filter::-webkit-scrollbar-thumb {
+    background: var(--primary-blue);
+    border-radius: 10px;
+  }
+
+  .filter-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  /* Show Carousel on Mobile */
+  .carousel-arrow {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--white);
+    border: 2px solid var(--secondary-blue);
+    color: var(--secondary-blue);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+  }
+
+  .carousel-arrow:hover {
+    background: var(--gradient-primary);
+    color: var(--white);
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .carousel-arrow-left {
+    left: -10px;
+  }
+
+  .carousel-arrow-right {
+    right: -10px;
+  }
+
+  .offers-grid {
+    display: flex;
+    flex-direction: row;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    grid-template-columns: none;
+    scroll-snap-type: x mandatory;
+  }
+
+  .offers-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .offer-card {
+    padding: 1.5rem;
+    min-width: calc(100% - 40px);
+    max-width: calc(100% - 40px);
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    margin: 0 20px;
+  }
+
+  .offer-card.featured {
+    transform: scale(1);
+  }
+
+  .offer-header h3 {
+    font-size: 1.5rem;
+  }
+
+  .feature-item {
+    gap: 0.5rem;
+  }
+
+  .feature-item span:last-child {
+    font-size: 0.9rem;
+  }
+
+  .offers-cta .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+
   /* Contact Section Mobile */
   .contact-grid {
     grid-template-columns: 1fr;
@@ -2083,6 +2923,78 @@ onUnmounted(() => {
 
   .logo-placeholder h4 {
     font-size: 0.7rem;
+  }
+
+  /* Offers Section Very Small Mobile */
+  .offers-section .container {
+    padding: 2rem 1rem;
+  }
+
+  .offers-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .offers-filter {
+    gap: 0.6rem;
+    margin: 1rem 0 1.5rem;
+    padding: 0.3rem 0;
+  }
+
+  .filter-btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
+  }
+
+  .carousel-arrow {
+    width: 35px;
+    height: 35px;
+    font-size: 1.8rem;
+  }
+
+  .carousel-arrow-left {
+    left: -5px;
+  }
+
+  .carousel-arrow-right {
+    right: -5px;
+  }
+
+  .offers-grid {
+    gap: 1rem;
+    padding: 0.8rem 0;
+  }
+
+  .offer-card {
+    padding: 1.2rem;
+    min-width: calc(100% - 30px);
+    max-width: calc(100% - 30px);
+    margin: 0 15px;
+  }
+
+  .offer-header h3 {
+    font-size: 1.3rem;
+  }
+
+  .offer-badge {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+  }
+
+  .offer-badge-featured {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.8rem;
+  }
+
+  .offer-intro {
+    font-size: 0.9rem;
+  }
+
+  .feature-item span:last-child {
+    font-size: 0.85rem;
+  }
+
+  .meta-item {
+    font-size: 0.85rem;
   }
 }
 </style>

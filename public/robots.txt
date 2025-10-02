@@ -1,0 +1,10 @@
+# Robots.txt for Muslim Visibility
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://m-vagency.vercel.app/sitemap.xml
+
+# Disallow admin pages if any
+Disallow: /admin/
+Disallow: /*.json$
