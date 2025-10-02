@@ -277,7 +277,7 @@ body {
 }
 
 .hamburger-line.active:nth-child(1) {
-  transform: rotate(45deg) translateY(9px);
+  transform: rotate(45deg) translateY(8px);
 }
 
 .hamburger-line.active:nth-child(2) {
@@ -285,7 +285,7 @@ body {
 }
 
 .hamburger-line.active:nth-child(3) {
-  transform: rotate(-45deg) translateY(-9px);
+  transform: rotate(-45deg) translateY(-8px);
 }
 
 .mobile-menu {
@@ -425,6 +425,14 @@ body {
     z-index: 1001;
   }
 
+  .hamburger-line.active:nth-child(1) {
+    transform: rotate(45deg) translateY(7px);
+  }
+
+  .hamburger-line.active:nth-child(3) {
+    transform: rotate(-45deg) translateY(-7px);
+  }
+
   .logo-img {
     height: 40px;
   }
@@ -484,6 +492,14 @@ body {
 
   .hamburger-line {
     height: 2px;
+  }
+
+  .hamburger-line.active:nth-child(1) {
+    transform: rotate(45deg) translateY(6px);
+  }
+
+  .hamburger-line.active:nth-child(3) {
+    transform: rotate(-45deg) translateY(-6px);
   }
 
   .mobile-menu {
