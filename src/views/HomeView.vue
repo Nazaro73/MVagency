@@ -2670,18 +2670,18 @@ onUnmounted(() => {
   }
 
   .feature-item {
-    gap: 0.4rem;
-    margin-bottom: 0.3rem;
-    padding: 0.15rem;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem;
   }
 
   .feature-item span:last-child {
     font-size: 0.85rem;
-    line-height: 1.3;
+    line-height: 1.4;
   }
 
   .feature-icon {
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   .offer-footer {
@@ -2967,18 +2967,18 @@ onUnmounted(() => {
   }
 
   .feature-item {
-    margin-bottom: 0.25rem;
-    padding: 0.1rem;
-    gap: 0.3rem;
+    margin-bottom: 0.4rem;
+    padding: 0.2rem;
+    gap: 0.4rem;
   }
 
   .feature-item span:last-child {
     font-size: 0.8rem;
-    line-height: 1.25;
+    line-height: 1.35;
   }
 
   .feature-icon {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 
   .offer-footer {
