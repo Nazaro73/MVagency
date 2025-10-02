@@ -2659,7 +2659,7 @@ onUnmounted(() => {
   }
 
   .offer-description {
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
   }
 
   .offer-intro {
@@ -2668,7 +2668,7 @@ onUnmounted(() => {
   }
 
   .offer-features {
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
   }
 
   .feature-item {
@@ -2957,7 +2957,7 @@ onUnmounted(() => {
   }
 
   .offer-description {
-    margin-bottom: 0.8rem;
+    margin-bottom: 1rem;
   }
 
   .offer-intro {
@@ -2970,7 +2970,7 @@ onUnmounted(() => {
   }
 
   .feature-item {
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.6rem;
     padding: 0.2rem;
     gap: 0.4rem;
   }
