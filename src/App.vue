@@ -79,8 +79,6 @@ const closeMobileMenu = () => {
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
 * {
   margin: 0;
   padding: 0;
@@ -122,7 +120,7 @@ html {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: Degular, sans-serif;
   line-height: 1.7;
   color: var(--black);
   background: var(--white);

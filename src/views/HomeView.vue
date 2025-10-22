@@ -22,6 +22,17 @@ const currentSlidePublicite = ref(0)
 const currentSlideAbonnement = ref(0)
 const currentSlidePrestations = ref(0)
 
+// Système d'accordéon FAQ
+const openFaqIndex = ref<number | null>(null)
+
+const toggleFaq = (index: number) => {
+  if (openFaqIndex.value === index) {
+    openFaqIndex.value = null
+  } else {
+    openFaqIndex.value = index
+  }
+}
+
 const scrollToSlide = (category: string, direction: 'next' | 'prev') => {
   const container = document.querySelector(`[data-category="${category}"]`) as HTMLElement
   if (!container) return
@@ -153,6 +164,10 @@ onUnmounted(() => {
   <div class="home">
     <!-- Hero Section -->
     <section id="accueil" class="hero">
+      <video autoplay muted loop playsinline class="hero-video">
+        <source src="/herovideo.mp4" type="video/mp4">
+        Votre navigateur ne supporte pas la vidéo.
+      </video>
       <div class="hero-background"></div>
       <div class="hero-content">
         <div class="hero-layout">
@@ -214,34 +229,6 @@ onUnmounted(() => {
       </div>
     </section>
 
-    <!-- Notre Équipe -->
-    <section class="team-section">
-      <div class="container">
-        <h3>Notre Équipe</h3>
-        <p class="team-intro">
-          Une équipe diverse et expérimentée, unie par la passion de créer des
-          collaborations authentiques et impactantes.
-        </p>
-        <div class="team-grid">
-          <div class="team-member">
-            <div class="member-avatar">👨‍💼</div>
-            <h5>Équipe Direction</h5>
-            <p>Vision stratégique et développement</p>
-          </div>
-          <div class="team-member">
-            <div class="member-avatar">👩‍💻</div>
-            <h5>Équipe Marketing</h5>
-            <p>Créativité et innovation</p>
-          </div>
-          <div class="team-member">
-            <div class="member-avatar">👨‍🤝‍👨</div>
-            <h5>Équipe Relations</h5>
-            <p>Accompagnement et suivi</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Nos Valeurs Section -->
     <section class="values-section">
       <div class="container">
@@ -266,11 +253,10 @@ onUnmounted(() => {
             </p>
           </div>
           <div class="value-card animate-on-scroll">
-            <div class="value-icon">❤️</div>
-            <h4>Respect</h4>
+            <div class="value-icon">🌟</div>
+            <h4>Valorisation</h4>
             <p>
-              Le respect mutuel est la base de nos relations. Nous honorons la
-              diversité culturelle et les convictions de chaque partenaire.
+              Nous aidons les commerçants, marques et prestataires musulmans à gagner en visibilité et en reconnaissance, tout en valorisant leurs produits et services dans le monde digital.
             </p>
           </div>
           <div class="value-card animate-on-scroll">
@@ -435,11 +421,16 @@ onUnmounted(() => {
         <div class="services-grid">
           <div class="service-item">
             <h4>Pour les Influenceurs</h4>
-            <p>Développez votre audience avec des partenariats éthiques et alignés avec vos valeurs.</p>
+            <p>Tu es influenceur, influenceuse ou tu gères une page à forte visibilité ?<br>
+            Muslim Visibility recrute des partenaires pour collaborer sur des campagnes rémunérées et aider les commerçants et prestataires musulmans à se développer.</p>
+            <p>Si tu veux participer à la croissance de la communauté tout en valorisant ton audience, contacte-nous dès maintenant.</p>
           </div>
           <div class="service-item">
-            <h4>Pour les Entreprises</h4>
-            <p>Atteignez une audience engagée grâce à des collaborations authentiques et respectueuses.</p>
+            <h4>Pour les Professionnels</h4>
+            <p>Vous êtes commerçant, marque ou prestataire de services ?<br>
+            Muslim Visibility vous aide à promouvoir vos produits et services à travers un réseau d'influenceurs qualifiés et engagés.<br>
+            Profitez d'une visibilité ciblée et authentique au sein de la communauté musulmane, et développez votre notoriété en ligne.</p>
+            <p>Contactez-nous pour élaborer ensemble votre prochaine campagne.</p>
           </div>
         </div>
       </div>
@@ -464,13 +455,6 @@ onUnmounted(() => {
           </button>
           <button
             class="filter-btn"
-            :class="{ active: activeOfferCategory === 'abonnement' }"
-            @click="activeOfferCategory = 'abonnement'"
-          >
-            ⭐ Abonnements
-          </button>
-          <button
-            class="filter-btn"
             :class="{ active: activeOfferCategory === 'prestations' }"
             @click="activeOfferCategory = 'prestations'"
           >
@@ -479,20 +463,11 @@ onUnmounted(() => {
         </div>
 
         <!-- Formules Publicitaires -->
-        <div class="offers-carousel-container">
-          <button
-            class="carousel-arrow carousel-arrow-left"
-            @click="scrollToSlide('publicite', 'prev')"
-            v-show="activeOfferCategory === 'publicite' && currentSlidePublicite > 0"
-          >
-            ‹
-          </button>
-
-          <div
-            v-show="activeOfferCategory === 'publicite'"
-            class="offers-grid"
-            data-category="publicite"
-          >
+        <div
+          v-show="activeOfferCategory === 'publicite'"
+          class="offers-grid"
+          data-category="publicite"
+        >
           <!-- OneShot -->
           <div class="offer-card animate-on-scroll">
             <div class="offer-header">
@@ -575,72 +550,50 @@ onUnmounted(() => {
               </div>
             </div>
           </div>
-        </div>
 
-          <button
-            class="carousel-arrow carousel-arrow-right"
-            @click="scrollToSlide('publicite', 'next')"
-            v-show="activeOfferCategory === 'publicite' && currentSlidePublicite < 1"
-          >
-            ›
-          </button>
-        </div>
-
-        <!-- Abonnements -->
-        <div class="offers-carousel-container">
-          <button
-            class="carousel-arrow carousel-arrow-left"
-            @click="scrollToSlide('abonnement', 'prev')"
-            v-show="activeOfferCategory === 'abonnement' && currentSlideAbonnement > 0"
-          >
-            ‹
-          </button>
-
-          <div
-            v-show="activeOfferCategory === 'abonnement'"
-            class="offers-grid"
-            data-category="abonnement"
-          >
           <!-- ABO+ -->
           <div class="offer-card animate-on-scroll">
             <div class="offer-header">
               <h3>ABO+</h3>
-              <div class="offer-badge">Accompagnement complet</div>
+              <div class="offer-badge">Formule complète et stable</div>
             </div>
             <div class="offer-description">
               <p class="offer-intro">
-                Un accompagnement complet et régulier pour booster votre présence en ligne.
+                Une formule complète et stable sur 3 mois.
+              </p>
+              <p class="offer-intro">
+                Avec l'ABO+, tu choisis un ou plusieurs partenaires (influenceurs ou pages à forte visibilité) avec lesquels tu t'engages sur toute la durée.
               </p>
             </div>
             <div class="offer-features">
               <div class="feature-item">
                 <span class="feature-icon">✅</span>
-                <span>2 posts par mois</span>
+                <span>Chaque partenaire diffuse 2 posts et 5 stories par mois</span>
               </div>
               <div class="feature-item">
                 <span class="feature-icon">✅</span>
-                <span>5 stories par mois</span>
+                <span>Conception visuelle incluse</span>
               </div>
               <div class="feature-item">
                 <span class="feature-icon">✅</span>
-                <span>Création visuelle offerte</span>
+                <span>Scripts optimisés inclus</span>
               </div>
               <div class="feature-item">
                 <span class="feature-icon">✅</span>
-                <span>Scripts stratégiques optimisés offerts</span>
+                <span>Rapport d'analyse inclus</span>
               </div>
               <div class="feature-item">
                 <span class="feature-icon">✅</span>
-                <span>Rapport d'analyse mensuel</span>
+                <span>Une stratégie continue pour installer ta marque et créer une vraie relation de confiance avec ton audience</span>
               </div>
             </div>
             <div class="offer-footer">
               <div class="offer-meta">
                 <div class="meta-item">
-                  <strong>Durée :</strong> 3 mois minimum
+                  <strong>Tarif :</strong> à partir de 180€/mois
                 </div>
                 <div class="meta-item">
-                  <strong>Engagement :</strong> 3 mois (paiement flexible possible)
+                  <strong>Durée :</strong> 3 mois d'engagement
                 </div>
               </div>
             </div>
@@ -649,65 +602,54 @@ onUnmounted(() => {
           <!-- ABO FLEX -->
           <div class="offer-card animate-on-scroll">
             <div class="offer-header">
-              <h3>ABO FLEX</h3>
+              <h3>🔁 ABO FLEX</h3>
               <div class="offer-badge">Formule flexible</div>
             </div>
             <div class="offer-description">
               <p class="offer-intro">
-                La formule flexible pour gérer plusieurs comptes selon vos besoins.
+                Une formule plus souple, toujours sur 3 mois d'accompagnement, mais avec la liberté de changer de partenaire chaque mois.
+              </p>
+              <p class="offer-intro">
+                Tu profites de la même qualité de contenu et de stratégie qu'en ABO+, tout en variant les profils d'influenceurs pour toucher différents publics.
               </p>
             </div>
             <div class="offer-features">
               <div class="feature-item">
                 <span class="feature-icon">✅</span>
-                <span>Même base que l'ABO+</span>
+                <span>Liberté de changer de partenaire chaque mois</span>
               </div>
               <div class="feature-item">
                 <span class="feature-icon">✅</span>
-                <span>Liberté de répartir sur 1, 2 ou 3 comptes</span>
+                <span>Même qualité de contenu qu'en ABO+</span>
               </div>
               <div class="feature-item">
                 <span class="feature-icon">✅</span>
-                <span>Toujours avec engagement 3 mois</span>
+                <span>Stratégie continue sur 3 mois</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✅</span>
+                <span>Idéal pour tester, ajuster et maximiser ta visibilité</span>
               </div>
             </div>
             <div class="offer-footer">
               <div class="offer-meta">
                 <div class="meta-item">
-                  <strong>Durée :</strong> 3 mois minimum
+                  <strong>Tarif :</strong> à partir de 180€/mois + option Flex 100€ (une seule fois)
                 </div>
                 <div class="meta-item">
-                  <strong>Engagement :</strong> 3 mois (répartition au choix du client)
+                  <strong>Durée :</strong> 3 mois d'accompagnement
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-          <button
-            class="carousel-arrow carousel-arrow-right"
-            @click="scrollToSlide('abonnement', 'next')"
-            v-show="activeOfferCategory === 'abonnement' && currentSlideAbonnement < 1"
-          >
-            ›
-          </button>
-        </div>
-
         <!-- Autres Prestations -->
-        <div class="offers-carousel-container">
-          <button
-            class="carousel-arrow carousel-arrow-left"
-            @click="scrollToSlide('prestations', 'prev')"
-            v-show="activeOfferCategory === 'prestations' && currentSlidePrestations > 0"
-          >
-            ‹
-          </button>
-
-          <div
-            v-show="activeOfferCategory === 'prestations'"
-            class="offers-grid"
-            data-category="prestations"
-          >
+        <div
+          v-show="activeOfferCategory === 'prestations'"
+          class="offers-grid"
+          data-category="prestations"
+        >
           <!-- Community Management -->
           <div class="offer-card animate-on-scroll">
             <div class="offer-header">
@@ -779,15 +721,6 @@ onUnmounted(() => {
               </div>
             </div>
           </div>
-        </div>
-
-          <button
-            class="carousel-arrow carousel-arrow-right"
-            @click="scrollToSlide('prestations', 'next')"
-            v-show="activeOfferCategory === 'prestations' && currentSlidePrestations < 1"
-          >
-            ›
-          </button>
         </div>
 
         <!-- CTA Button -->
@@ -926,23 +859,116 @@ onUnmounted(() => {
 
         <!-- FAQ Section -->
         <div class="faq-section">
-          <h3>Questions fréquentes</h3>
-          <div class="faq-grid">
-            <div class="faq-item">
-              <h5>Combien de temps pour avoir une réponse ?</h5>
-              <p>Nous nous engageons à répondre sous 24h en semaine, et souvent bien plus rapidement via WhatsApp.</p>
+          <h3>Foire aux Questions</h3>
+          <div class="faq-accordion">
+            <div class="faq-item" :class="{ open: openFaqIndex === 0 }" @click="toggleFaq(0)">
+              <div class="faq-question">
+                <h5>1. Qu'est-ce que Muslim Visibility ?</h5>
+                <span class="faq-icon">{{ openFaqIndex === 0 ? '−' : '+' }}</span>
+              </div>
+              <div class="faq-answer">
+                <p>Muslim Visibility est une agence spécialisée dans la publicité d'influence et la visibilité digitale dédiée aux commerçants, marques et prestataires musulmans. Nous mettons en relation les entreprises avec des influenceurs fiables et alignés sur nos valeurs pour promouvoir leurs produits et services.</p>
+              </div>
             </div>
-            <div class="faq-item">
-              <h5>Quels sont vos tarifs ?</h5>
-              <p>Nos tarifs varient selon le type de collaboration. Contactez-nous pour un devis personnalisé et transparent.</p>
+
+            <div class="faq-item" :class="{ open: openFaqIndex === 1 }" @click="toggleFaq(1)">
+              <div class="faq-question">
+                <h5>2. Quels types d'offres propose Muslim Visibility ?</h5>
+                <span class="faq-icon">{{ openFaqIndex === 1 ? '−' : '+' }}</span>
+              </div>
+              <div class="faq-answer">
+                <p>Nous proposons plusieurs formules selon tes besoins : OneShot (collaboration ponctuelle), ShortCampaign (campagne rapide), ABO+ (accompagnement sur 3 mois), et ABO FLEX (abonnement 3 mois avec changement de partenaire possible). Chaque formule s'adapte à ton budget, ton objectif et ton rythme de communication.</p>
+              </div>
             </div>
-            <div class="faq-item">
-              <h5>Travaillez-vous avec tous types d'influenceurs ?</h5>
-              <p>Nous travaillons avec des créateurs de contenu alignés avec nos valeurs d'éthique et d'authenticité.</p>
+
+            <div class="faq-item" :class="{ open: openFaqIndex === 2 }" @click="toggleFaq(2)">
+              <div class="faq-question">
+                <h5>3. Comment fonctionne une campagne ?</h5>
+                <span class="faq-icon">{{ openFaqIndex === 2 ? '−' : '+' }}</span>
+              </div>
+              <div class="faq-answer">
+                <p>Nous sélectionnons les partenaires (pages ou influenceurs) les plus adaptés à ton activité, concevons les visuels et les scripts, puis diffusons la campagne selon une stratégie sur mesure. Un rapport d'analyse est ensuite remis à la fin de la période.</p>
+              </div>
             </div>
-            <div class="faq-item">
-              <h5>Comment garantissez-vous la qualité ?</h5>
-              <p>Chaque collaboration est suivie personnellement par notre équipe pour assurer des résultats optimaux.</p>
+
+            <div class="faq-item" :class="{ open: openFaqIndex === 3 }" @click="toggleFaq(3)">
+              <div class="faq-question">
+                <h5>4. Combien coûtent les campagnes et abonnements ?</h5>
+                <span class="faq-icon">{{ openFaqIndex === 3 ? '−' : '+' }}</span>
+              </div>
+              <div class="faq-answer">
+                <p>Les formules ABO+ et ABO FLEX commencent à partir de 180€/mois (sur 3 mois). L'option Flex est facturée 100€ une seule fois. Les formules OneShot et ShortCampaign sont tarifées à la carte, selon la visibilité et le nombre de partenaires choisis.</p>
+              </div>
+            </div>
+
+            <div class="faq-item" :class="{ open: openFaqIndex === 4 }" @click="toggleFaq(4)">
+              <div class="faq-question">
+                <h5>5. Comment se font les paiements ?</h5>
+                <span class="faq-icon">{{ openFaqIndex === 4 ? '−' : '+' }}</span>
+              </div>
+              <div class="faq-answer">
+                <p>Les règlements peuvent se faire par virement bancaire ou via PayPal, selon ce qui t'arrange le mieux. Les paiements sont effectués en début de prestation, conformément au devis validé.</p>
+              </div>
+            </div>
+
+            <div class="faq-item" :class="{ open: openFaqIndex === 5 }" @click="toggleFaq(5)">
+              <div class="faq-question">
+                <h5>6. Qu'est-ce que comprend une campagne ?</h5>
+                <span class="faq-icon">{{ openFaqIndex === 5 ? '−' : '+' }}</span>
+              </div>
+              <div class="faq-answer">
+                <p>Chaque partenaire diffuse en moyenne 2 posts et 5 stories par mois, avec la création visuelle offerte, les scripts optimisés et un rapport d'analyse détaillé. Les formats varient selon la formule choisie (Story simple, Story facecam, ou Réel cross-sharing).</p>
+              </div>
+            </div>
+
+            <div class="faq-item" :class="{ open: openFaqIndex === 6 }" @click="toggleFaq(6)">
+              <div class="faq-question">
+                <h5>7. Puis-je choisir mes influenceurs ?</h5>
+                <span class="faq-icon">{{ openFaqIndex === 6 ? '−' : '+' }}</span>
+              </div>
+              <div class="faq-answer">
+                <p>Oui, tu peux proposer un ou plusieurs profils que tu souhaites cibler, ou laisser notre équipe te recommander les meilleurs partenaires selon ton domaine et ton budget.</p>
+              </div>
+            </div>
+
+            <div class="faq-item" :class="{ open: openFaqIndex === 7 }" @click="toggleFaq(7)">
+              <div class="faq-question">
+                <h5>8. Est-ce réservé uniquement aux marques musulmanes ?</h5>
+                <span class="faq-icon">{{ openFaqIndex === 7 ? '−' : '+' }}</span>
+              </div>
+              <div class="faq-answer">
+                <p>Nous mettons en avant principalement les entreprises, prestataires et projets éthiques partageant des valeurs compatibles avec la communauté musulmane.</p>
+              </div>
+            </div>
+
+            <div class="faq-item" :class="{ open: openFaqIndex === 8 }" @click="toggleFaq(8)">
+              <div class="faq-question">
+                <h5>9. Comment devenir partenaire ou influenceur chez Muslim Visibility ?</h5>
+                <span class="faq-icon">{{ openFaqIndex === 8 ? '−' : '+' }}</span>
+              </div>
+              <div class="faq-answer">
+                <p>Si tu es influenceur, influenceuse ou que tu gères une page à forte visibilité, tu peux nous contacter via le formulaire de collaboration. Nos équipes étudieront ton profil pour rejoindre notre réseau et participer à des campagnes rémunérées.</p>
+              </div>
+            </div>
+
+            <div class="faq-item" :class="{ open: openFaqIndex === 9 }" @click="toggleFaq(9)">
+              <div class="faq-question">
+                <h5>10. Proposez-vous aussi de la gestion de réseaux sociaux ?</h5>
+                <span class="faq-icon">{{ openFaqIndex === 9 ? '−' : '+' }}</span>
+              </div>
+              <div class="faq-answer">
+                <p>Oui. Nous proposons des services de Community Management, de création visuelle (flyers, reels, carrousels) et d'accompagnement stratégique personnalisés, en dehors des formules publicitaires.</p>
+              </div>
+            </div>
+
+            <div class="faq-item" :class="{ open: openFaqIndex === 10 }" @click="toggleFaq(10)">
+              <div class="faq-question">
+                <h5>11. Comment vous contacter ?</h5>
+                <span class="faq-icon">{{ openFaqIndex === 10 ? '−' : '+' }}</span>
+              </div>
+              <div class="faq-answer">
+                <p>Tu peux nous écrire directement via le formulaire de contact du site, par e-mail à muslimvisibility@gmail.com, ou nous joindre au 07 61 06 64 91 (disponible aussi sur WhatsApp). Nous répondons généralement sous 24 à 48 heures.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -1011,11 +1037,6 @@ onUnmounted(() => {
 }
 
 .hero {
-  background:
-    url('/image.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
   color: var(--white);
   padding: 6rem 2rem 4rem;
   text-align: left;
@@ -1030,6 +1051,16 @@ onUnmounted(() => {
   margin: 0;
 }
 
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
 
 .hero-background {
   position: absolute;
@@ -1037,11 +1068,8 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  background:
-    radial-gradient(ellipse 600px 400px at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 60%),
-    radial-gradient(ellipse 500px 600px at 75% 75%, rgba(255, 255, 255, 0.08) 0%, transparent 65%);
-  animation: modernFloat 25s ease-in-out infinite;
-  filter: blur(3px);
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
 @keyframes modernFloat {
@@ -1188,14 +1216,33 @@ onUnmounted(() => {
   background: var(--white);
   color: var(--secondary-blue);
   box-shadow: var(--shadow-md);
+  border: 2px solid var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-primary);
+  transition: left 0.3s ease;
+  z-index: -1;
 }
 
 .btn-primary:hover {
-  background: var(--light-blue);
-  color: var(--secondary-blue);
-  transform: translateY(-4px);
+  background: transparent;
+  color: var(--white);
+  border-color: var(--white);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
-  animation: pulse 0.6s ease-in-out;
+}
+
+.btn-primary:hover::before {
+  left: 0;
 }
 
 .btn-secondary {
@@ -1242,7 +1289,6 @@ onUnmounted(() => {
   width: 100%;
   margin: 0;
 }
-
 
 .about-section .container {
   position: relative;
@@ -1344,7 +1390,7 @@ onUnmounted(() => {
 
 .values-section {
   padding: 0;
-  background: var(--white);
+  background: var(--gradient-primary);
   position: relative;
   width: 100%;
   margin: 0;
@@ -1360,7 +1406,11 @@ onUnmounted(() => {
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  color: var(--black);
+  color: var(--white);
+}
+
+.values-section .section-subtitle {
+  color: var(--white);
 }
 
 .values-grid {
@@ -1461,70 +1511,6 @@ onUnmounted(() => {
 .value-card:hover {
   background: var(--gradient-primary);
   color: var(--white);
-}
-
-.team-section {
-  padding: 0;
-  background: var(--light-gray);
-  position: relative;
-  width: 100%;
-  margin: 0;
-}
-
-.team-section .container {
-  padding: 5rem 2rem;
-}
-
-.team-section h3 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 1rem;
-  color: var(--black);
-}
-
-.team-intro {
-  text-align: center;
-  font-size: 1.1rem;
-  color: var(--medium-gray);
-  margin-bottom: 2rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-}
-
-.team-member {
-  text-align: center;
-  padding: 2rem;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-}
-
-.team-member:hover {
-  transform: translateY(-5px);
-}
-
-.member-avatar {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.team-member h5 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  color: var(--black);
-}
-
-.team-member p {
-  color: var(--medium-gray);
-  margin: 0;
 }
 
 /* Testimonials Section */
@@ -1877,9 +1863,15 @@ onUnmounted(() => {
 
 .offers-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: 1fr;
   gap: 2rem;
   margin-top: 3rem;
+}
+
+@media (min-width: 768px) {
+  .offers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .offer-card {
@@ -2026,6 +2018,34 @@ onUnmounted(() => {
 .offers-cta .btn {
   font-size: 1.1rem;
   padding: 1.2rem 2.5rem;
+  border: 2px solid var(--primary-blue);
+  background: var(--white);
+  color: var(--secondary-blue);
+  position: relative;
+  overflow: hidden;
+}
+
+.offers-cta .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-primary);
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.offers-cta .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  color: var(--white);
+  border-color: var(--secondary-blue);
+}
+
+.offers-cta .btn:hover::before {
+  left: 0;
 }
 
 /* Contact Section */
@@ -2263,30 +2283,98 @@ onUnmounted(() => {
   color: var(--black);
 }
 
-.faq-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+.faq-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .faq-item {
   background: white;
-  padding: 1.5rem;
-  border-radius: 15px;
-  border-left: 4px solid var(--primary-blue);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  border-radius: 12px;
+  border: 2px solid var(--light-gray);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-.faq-item h5 {
+.faq-item:hover {
+  border-color: var(--primary-blue);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.faq-item.open {
+  border-color: var(--secondary-blue);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 1.5rem;
+  background: white;
+  transition: background 0.3s ease;
+}
+
+.faq-item:hover .faq-question {
+  background: var(--light-gray);
+}
+
+.faq-item.open .faq-question {
+  background: var(--gradient-secondary);
+}
+
+.faq-question h5 {
   font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+  margin: 0;
   color: var(--black);
+  font-weight: 600;
+  flex: 1;
+  padding-right: 1rem;
 }
 
-.faq-item p {
+.faq-icon {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--secondary-blue);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--light-blue);
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.faq-item.open .faq-icon {
+  background: var(--secondary-blue);
+  color: white;
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  padding: 0 1.5rem;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 500px;
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.faq-answer p {
   color: var(--medium-gray);
-  line-height: 1.6;
+  line-height: 1.7;
   margin: 0;
+  font-size: 1rem;
 }
 
 /* Final CTA Section */
@@ -2344,16 +2432,51 @@ onUnmounted(() => {
   z-index: 2;
 }
 
+.final-cta .btn-primary {
+  border: 2px solid var(--white);
+  background: var(--white);
+  color: var(--secondary-blue);
+  position: relative;
+  overflow: hidden;
+}
+
+.final-cta .btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.final-cta .btn-primary:hover {
+  background: transparent;
+  color: var(--white);
+  border-color: var(--white);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.final-cta .btn-primary:hover::before {
+  left: 0;
+}
+
 @media (max-width: 768px) {
   .hero {
     padding: 4rem 1rem 3rem;
-  }
-
-  .hero {
-    background: var(--gradient-primary) !important;
-    background-attachment: scroll !important;
     text-align: center;
     justify-content: center;
+  }
+
+  .hero-video {
+    display: none;
+  }
+
+  .hero-background {
+    background: var(--gradient-primary);
   }
 
   .hero-content {
@@ -2389,7 +2512,6 @@ onUnmounted(() => {
     width: 100%;
   }
 
-  .hero-background,
   .hero-particles {
     display: none;
   }
@@ -2430,8 +2552,7 @@ onUnmounted(() => {
     font-size: 0.9rem;
   }
 
-  .values-grid,
-  .team-grid {
+  .values-grid {
     grid-template-columns: 1fr;
   }
 
@@ -2448,15 +2569,13 @@ onUnmounted(() => {
   }
 
   .value-card h4,
-  .service-item h4,
-  .team-member h4 {
+  .service-item h4 {
     font-size: 1.2rem;
   }
 
   .value-card p,
   .service-item p,
   .story-text p,
-  .team-member p,
   .section-subtitle {
     font-size: 0.95rem;
   }
@@ -2466,12 +2585,18 @@ onUnmounted(() => {
     margin-bottom: 0.5rem;
   }
 
-  .faq-item h4 {
-    font-size: 1.1rem;
+  .faq-question h5 {
+    font-size: 1rem;
   }
 
-  .faq-item p {
-    font-size: 0.9rem;
+  .faq-answer p {
+    font-size: 0.95rem;
+  }
+
+  .faq-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 1.3rem;
   }
 
   /* Testimonials Section Mobile */
@@ -2580,69 +2705,13 @@ onUnmounted(() => {
     font-size: 0.95rem;
   }
 
-  /* Show Carousel on Mobile */
-  .carousel-arrow {
-    display: flex;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: var(--white);
-    border: 2px solid var(--secondary-blue);
-    color: var(--secondary-blue);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    font-size: 2rem;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 10;
-    justify-content: center;
-    box-shadow: var(--shadow-md);
-    transition: all 0.3s ease;
-    line-height: 1;
-    padding: 0;
-    margin: 0;
-  }
-
-  .carousel-arrow:hover {
-    background: var(--gradient-primary);
-    color: var(--white);
-    transform: translateY(-50%) scale(1.1);
-  }
-
-  .carousel-arrow-left {
-    left: -10px;
-  }
-
-  .carousel-arrow-right {
-    right: -10px;
-  }
-
   .offers-grid {
-    display: flex;
-    flex-direction: row;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    grid-template-columns: 1fr;
     gap: 1.5rem;
-    padding: 1rem 0;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    grid-template-columns: none;
-    scroll-snap-type: x mandatory;
-  }
-
-  .offers-grid::-webkit-scrollbar {
-    display: none;
   }
 
   .offer-card {
     padding: 1rem;
-    min-width: calc(100% - 40px);
-    max-width: calc(100% - 40px);
-    flex-shrink: 0;
-    scroll-snap-align: center;
-    margin: 0 20px;
   }
 
   .offer-card.featured {
@@ -2719,8 +2788,16 @@ onUnmounted(() => {
     margin-bottom: 0.5rem;
   }
 
-  .faq-grid {
-    grid-template-columns: 1fr;
+  .faq-accordion {
+    gap: 0.8rem;
+  }
+
+  .faq-question {
+    padding: 1rem 1.2rem;
+  }
+
+  .faq-item.open .faq-answer {
+    padding: 0 1.2rem 1.2rem 1.2rem;
   }
 
   .form-card {
@@ -2795,25 +2872,37 @@ onUnmounted(() => {
   }
 
   .value-card h4,
-  .service-item h4,
-  .team-member h4 {
+  .service-item h4 {
     font-size: 1.1rem;
   }
 
   .value-card p,
   .service-item p,
   .story-text p,
-  .team-member p,
   .section-subtitle {
     font-size: 0.85rem;
   }
 
-  .faq-item h4 {
-    font-size: 1rem;
+  .faq-question h5 {
+    font-size: 0.95rem;
   }
 
-  .faq-item p {
-    font-size: 0.8rem;
+  .faq-answer p {
+    font-size: 0.85rem;
+  }
+
+  .faq-icon {
+    width: 26px;
+    height: 26px;
+    font-size: 1.2rem;
+  }
+
+  .faq-question {
+    padding: 0.9rem 1rem;
+  }
+
+  .faq-item.open .faq-answer {
+    padding: 0 1rem 1rem 1rem;
   }
 
   .contact-info h3,
