@@ -362,52 +362,31 @@ onUnmounted(() => {
         <div class="brands-slider-wrapper">
           <div class="brands-slider" ref="brandsSlider">
             <div class="brand-logo">
-              <div class="logo-placeholder">
-                <span>🏢</span>
-                <h4>Brand A</h4>
-              </div>
+              <img src="/WhatsApp Image 2025-10-23 à 15.29.26_1ce76da0.jpg" alt="Brand Logo" />
             </div>
             <div class="brand-logo">
-              <div class="logo-placeholder">
-                <span>🛍️</span>
-                <h4>Brand B</h4>
-              </div>
+              <img src="/WhatsApp Image 2025-10-23 à 15.34.44_dab1cd9a.jpg" alt="Brand Logo" />
             </div>
             <div class="brand-logo">
-              <div class="logo-placeholder">
-                <span>🍽️</span>
-                <h4>Brand C</h4>
-              </div>
+              <img src="/WhatsApp Image 2025-10-23 à 15.37.59_6795c4da.jpg" alt="Brand Logo" />
             </div>
             <div class="brand-logo">
-              <div class="logo-placeholder">
-                <span>👗</span>
-                <h4>Brand D</h4>
-              </div>
+              <img src="/WhatsApp Image 2025-10-23 à 15.39.19_413669a0.jpg" alt="Brand Logo" />
             </div>
             <div class="brand-logo">
-              <div class="logo-placeholder">
-                <span>💄</span>
-                <h4>Brand E</h4>
-              </div>
+              <img src="/WhatsApp Image 2025-10-23 à 15.40.41_41138365.jpg" alt="Brand Logo" />
             </div>
             <div class="brand-logo">
-              <div class="logo-placeholder">
-                <span>📱</span>
-                <h4>Brand F</h4>
-              </div>
+              <img src="/WhatsApp Image 2025-10-23 à 15.41.19_b538ba65.jpg" alt="Brand Logo" />
             </div>
             <div class="brand-logo">
-              <div class="logo-placeholder">
-                <span>🏃‍♂️</span>
-                <h4>Brand G</h4>
-              </div>
+              <img src="/WhatsApp Image 2025-10-23 à 15.43.27_566db64d.jpg" alt="Brand Logo" />
             </div>
             <div class="brand-logo">
-              <div class="logo-placeholder">
-                <span>🎯</span>
-                <h4>Brand H</h4>
-              </div>
+              <img src="/WhatsApp Image 2025-10-23 à 15.44.27_a2a59e11.jpg" alt="Brand Logo" />
+            </div>
+            <div class="brand-logo">
+              <img src="/WhatsApp Image 2025-10-23 à 15.47.54_c7be75f2.jpg" alt="Brand Logo" />
             </div>
           </div>
         </div>
@@ -1682,6 +1661,22 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.brand-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: var(--border-radius);
+  background: var(--white);
+  padding: 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.brand-logo img:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-5px);
 }
 
 .logo-placeholder {
