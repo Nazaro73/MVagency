@@ -179,10 +179,10 @@ onUnmounted(() => {
             </p>
           </div>
           <div class="hero-actions animate-on-scroll">
-            <a href="https://wa.me/+33123456789?text=Bonjour%2C%20je%20souhaite%20en%20savoir%20plus%20sur%20vos%20services" class="btn btn-primary" target="_blank">
+            <a href="https://wa.me/+33618937532?text=Bonjour%2C%20je%20souhaite%20en%20savoir%20plus%20sur%20vos%20services" class="btn btn-primary" target="_blank">
               💬 Nous contacter sur WhatsApp
             </a>
-            <a href="https://wa.me/+33123456789?text=Bonjour%2C%20je%20souhaite%20demander%20un%20devis" class="btn btn-primary" target="_blank">
+            <a href="https://wa.me/+33618937532?text=Bonjour%2C%20je%20souhaite%20demander%20un%20devis" class="btn btn-primary" target="_blank">
               Demander un devis
             </a>
           </div>
@@ -266,150 +266,6 @@ onUnmounted(() => {
               Nous visons l'excellence dans chaque projet, en offrant un service
               de qualité supérieure et des résultats mesurables.
             </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Commentaires Section -->
-    <section class="testimonials-section">
-      <div class="container">
-        <h2 class="animate-on-scroll">Ce que disent nos clients</h2>
-        <p class="section-subtitle animate-on-scroll">Leurs témoignages parlent pour nous</p>
-
-        <div class="testimonials-container">
-          <div class="testimonials-slider" ref="testimonialSlider">
-            <div class="testimonial-card">
-              <div class="testimonial-content">
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <p>"Muslim Visibility a transformé ma carrière d'influenceuse. Grâce à eux, j'ai trouvé des collaborations authentiques qui correspondent parfaitement à mes valeurs. L'équipe est professionnelle et à l'écoute."</p>
-                <div class="testimonial-author">
-                  <div class="author-avatar">👩‍🦱</div>
-                  <div class="author-info">
-                    <h5>Amina L.</h5>
-                    <span>Influenceuse lifestyle</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="testimonial-card">
-              <div class="testimonial-content">
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <p>"En tant qu'entreprise, nous cherchions des influenceurs authentiques pour promouvoir nos produits halal. Muslim Visibility nous a connectés avec des créateurs parfaits pour notre marque. ROI exceptionnel !"</p>
-                <div class="testimonial-author">
-                  <div class="author-avatar">👨‍💼</div>
-                  <div class="author-info">
-                    <h5>Karim B.</h5>
-                    <span>Directeur Marketing</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="testimonial-card">
-              <div class="testimonial-content">
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <p>"J'ai enfin trouvé une agence qui comprend mes valeurs ! Les collaborations proposées sont toujours en adéquation avec mon contenu et mon audience. Je recommande vivement Muslim Visibility."</p>
-                <div class="testimonial-author">
-                  <div class="author-avatar">🧕</div>
-                  <div class="author-info">
-                    <h5>Fatima K.</h5>
-                    <span>Content Creator</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="testimonial-card">
-              <div class="testimonial-content">
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <p>"Transparence, professionnalisme et respect : voilà ce qui définit Muslim Visibility. Ils ont su nous accompagner dans notre stratégie d'influence avec une approche éthique remarquable."</p>
-                <div class="testimonial-author">
-                  <div class="author-avatar">👩‍💻</div>
-                  <div class="author-info">
-                    <h5>Sarah M.</h5>
-                    <span>Responsable Communication</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="testimonial-card">
-              <div class="testimonial-content">
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <p>"Muslim Visibility m'a aidé à développer mon audience de manière authentique. Les partenariats qu'ils proposent sont toujours de qualité et respectent mes convictions. Une équipe fantastique !"</p>
-                <div class="testimonial-author">
-                  <div class="author-avatar">👨‍🎨</div>
-                  <div class="author-info">
-                    <h5>Omar T.</h5>
-                    <span>Créateur de contenu</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Ils nous font confiance Section -->
-    <section class="trusted-brands-section">
-      <div class="container">
-        <h2 class="animate-on-scroll">Ils nous font confiance</h2>
-        <p class="section-subtitle animate-on-scroll">Des marques de renom qui partagent nos valeurs</p>
-
-        <div class="brands-slider-wrapper">
-          <div class="brands-slider" ref="brandsSlider">
-            <div class="brand-logo">
-              <img src="/WhatsApp Image 2025-10-23 à 15.29.26_1ce76da0.jpg" alt="Brand Logo" />
-            </div>
-            <div class="brand-logo">
-              <img src="/WhatsApp Image 2025-10-23 à 15.34.44_dab1cd9a.jpg" alt="Brand Logo" />
-            </div>
-            <div class="brand-logo">
-              <img src="/WhatsApp Image 2025-10-23 à 15.37.59_6795c4da.jpg" alt="Brand Logo" />
-            </div>
-            <div class="brand-logo">
-              <img src="/WhatsApp Image 2025-10-23 à 15.39.19_413669a0.jpg" alt="Brand Logo" />
-            </div>
-            <div class="brand-logo">
-              <img src="/WhatsApp Image 2025-10-23 à 15.40.41_41138365.jpg" alt="Brand Logo" />
-            </div>
-            <div class="brand-logo">
-              <img src="/WhatsApp Image 2025-10-23 à 15.41.19_b538ba65.jpg" alt="Brand Logo" />
-            </div>
-            <div class="brand-logo">
-              <img src="/WhatsApp Image 2025-10-23 à 15.43.27_566db64d.jpg" alt="Brand Logo" />
-            </div>
-            <div class="brand-logo">
-              <img src="/WhatsApp Image 2025-10-23 à 15.44.27_a2a59e11.jpg" alt="Brand Logo" />
-            </div>
-            <div class="brand-logo">
-              <img src="/WhatsApp Image 2025-10-23 à 15.47.54_c7be75f2.jpg" alt="Brand Logo" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services-section">
-      <div class="container">
-        <h2>Nos Services</h2>
-        <div class="services-grid">
-          <div class="service-item">
-            <h4>Pour les Influenceurs</h4>
-            <p>Tu es influenceur, influenceuse ou tu gères une page à forte visibilité ?<br>
-            Muslim Visibility recrute des partenaires pour collaborer sur des campagnes rémunérées et aider les commerçants et prestataires musulmans à se développer.</p>
-            <p>Si tu veux participer à la croissance de la communauté tout en valorisant ton audience, contacte-nous dès maintenant.</p>
-          </div>
-          <div class="service-item">
-            <h4>Pour les Professionnels</h4>
-            <p>Vous êtes commerçant, marque ou prestataire de services ?<br>
-            Muslim Visibility vous aide à promouvoir vos produits et services à travers un réseau d'influenceurs qualifiés et engagés.<br>
-            Profitez d'une visibilité ciblée et authentique au sein de la communauté musulmane, et développez votre notoriété en ligne.</p>
-            <p>Contactez-nous pour élaborer ensemble votre prochaine campagne.</p>
           </div>
         </div>
       </div>
@@ -709,6 +565,150 @@ onUnmounted(() => {
       </div>
     </section>
 
+    <!-- Ils nous font confiance Section -->
+    <section class="trusted-brands-section">
+      <div class="container">
+        <h2 class="animate-on-scroll">Ils nous font confiance</h2>
+        <p class="section-subtitle animate-on-scroll">Des marques de renom qui partagent nos valeurs</p>
+
+        <div class="brands-slider-wrapper">
+          <div class="brands-slider" ref="brandsSlider">
+            <div class="brand-logo">
+              <img src="/WhatsApp Image 2025-10-23 à 15.29.26_1ce76da0.jpg" alt="Brand Logo" />
+            </div>
+            <div class="brand-logo">
+              <img src="/WhatsApp Image 2025-10-23 à 15.34.44_dab1cd9a.jpg" alt="Brand Logo" />
+            </div>
+            <div class="brand-logo">
+              <img src="/WhatsApp Image 2025-10-23 à 15.37.59_6795c4da.jpg" alt="Brand Logo" />
+            </div>
+            <div class="brand-logo">
+              <img src="/WhatsApp Image 2025-10-23 à 15.39.19_413669a0.jpg" alt="Brand Logo" />
+            </div>
+            <div class="brand-logo">
+              <img src="/WhatsApp Image 2025-10-23 à 15.40.41_41138365.jpg" alt="Brand Logo" />
+            </div>
+            <div class="brand-logo">
+              <img src="/WhatsApp Image 2025-10-23 à 15.41.19_b538ba65.jpg" alt="Brand Logo" />
+            </div>
+            <div class="brand-logo">
+              <img src="/WhatsApp Image 2025-10-23 à 15.43.27_566db64d.jpg" alt="Brand Logo" />
+            </div>
+            <div class="brand-logo">
+              <img src="/WhatsApp Image 2025-10-23 à 15.44.27_a2a59e11.jpg" alt="Brand Logo" />
+            </div>
+            <div class="brand-logo">
+              <img src="/WhatsApp Image 2025-10-23 à 15.47.54_c7be75f2.jpg" alt="Brand Logo" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Commentaires Section -->
+    <section class="testimonials-section">
+      <div class="container">
+        <h2 class="animate-on-scroll">Ce que disent nos clients</h2>
+        <p class="section-subtitle animate-on-scroll">Leurs témoignages parlent pour nous</p>
+
+        <div class="testimonials-container">
+          <div class="testimonials-slider" ref="testimonialSlider">
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Muslim Visibility a transformé ma carrière d'influenceuse. Grâce à eux, j'ai trouvé des collaborations authentiques qui correspondent parfaitement à mes valeurs. L'équipe est professionnelle et à l'écoute."</p>
+                <div class="testimonial-author">
+                  <div class="author-avatar">👩‍🦱</div>
+                  <div class="author-info">
+                    <h5>Amina L.</h5>
+                    <span>Influenceuse lifestyle</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"En tant qu'entreprise, nous cherchions des influenceurs authentiques pour promouvoir nos produits halal. Muslim Visibility nous a connectés avec des créateurs parfaits pour notre marque. ROI exceptionnel !"</p>
+                <div class="testimonial-author">
+                  <div class="author-avatar">👨‍💼</div>
+                  <div class="author-info">
+                    <h5>Karim B.</h5>
+                    <span>Directeur Marketing</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"J'ai enfin trouvé une agence qui comprend mes valeurs ! Les collaborations proposées sont toujours en adéquation avec mon contenu et mon audience. Je recommande vivement Muslim Visibility."</p>
+                <div class="testimonial-author">
+                  <div class="author-avatar">🧕</div>
+                  <div class="author-info">
+                    <h5>Fatima K.</h5>
+                    <span>Content Creator</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Transparence, professionnalisme et respect : voilà ce qui définit Muslim Visibility. Ils ont su nous accompagner dans notre stratégie d'influence avec une approche éthique remarquable."</p>
+                <div class="testimonial-author">
+                  <div class="author-avatar">👩‍💻</div>
+                  <div class="author-info">
+                    <h5>Sarah M.</h5>
+                    <span>Responsable Communication</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="testimonial-content">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Muslim Visibility m'a aidé à développer mon audience de manière authentique. Les partenariats qu'ils proposent sont toujours de qualité et respectent mes convictions. Une équipe fantastique !"</p>
+                <div class="testimonial-author">
+                  <div class="author-avatar">👨‍🎨</div>
+                  <div class="author-info">
+                    <h5>Omar T.</h5>
+                    <span>Créateur de contenu</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+      <div class="container">
+        <h2>Nos Services</h2>
+        <div class="services-grid">
+          <div class="service-item">
+            <h4>Pour les Influenceurs</h4>
+            <p>Tu es influenceur, influenceuse ou tu gères une page à forte visibilité ?<br>
+            Muslim Visibility recrute des partenaires pour collaborer sur des campagnes rémunérées et aider les commerçants et prestataires musulmans à se développer.</p>
+            <p>Si tu veux participer à la croissance de la communauté tout en valorisant ton audience, contacte-nous dès maintenant.</p>
+          </div>
+          <div class="service-item">
+            <h4>Pour les Professionnels</h4>
+            <p>Vous êtes commerçant, marque ou prestataire de services ?<br>
+            Muslim Visibility vous aide à promouvoir vos produits et services à travers un réseau d'influenceurs qualifiés et engagés.<br>
+            Profitez d'une visibilité ciblée et authentique au sein de la communauté musulmane, et développez votre notoriété en ligne.</p>
+            <p>Contactez-nous pour élaborer ensemble votre prochaine campagne.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
       <div class="container">
@@ -737,7 +737,7 @@ onUnmounted(() => {
                 <div class="method-icon">📱</div>
                 <div class="method-info">
                   <h5>Téléphone</h5>
-                  <p>+33 1 23 45 67 89</p>
+                  <p>+33 6 18 93 75 32</p>
                 </div>
               </div>
               <div class="contact-method">
@@ -752,7 +752,7 @@ onUnmounted(() => {
             <!-- WhatsApp Button -->
             <div class="whatsapp-section">
               <h4>Besoin d'une réponse rapide ?</h4>
-              <a href="https://wa.me/+33123456789?text=Bonjour%2C%20je%20souhaite%20en%20savoir%20plus%20sur%20vos%20services"
+              <a href="https://wa.me/+33618937532?text=Bonjour%2C%20je%20souhaite%20en%20savoir%20plus%20sur%20vos%20services"
                  class="whatsapp-btn"
                  target="_blank">
                 <span class="whatsapp-icon">💬</span>
@@ -793,7 +793,7 @@ onUnmounted(() => {
                   <select id="type" v-model="form.type" required>
                     <option value="">Sélectionnez votre profil</option>
                     <option value="influenceur">Influenceur</option>
-                    <option value="entreprise">Entreprise</option>
+                    <option value="professionnel">Professionnel</option>
                     <option value="autre">Autre</option>
                   </select>
                 </div>
@@ -804,7 +804,7 @@ onUnmounted(() => {
                     type="tel"
                     id="phone"
                     v-model="form.phone"
-                    placeholder="+33 1 23 45 67 89"
+                    placeholder="+33 6 18 93 75 32"
                   >
                 </div>
 
@@ -958,9 +958,9 @@ onUnmounted(() => {
     <section class="final-cta">
       <div class="container">
         <h2>Rejoignez l'aventure</h2>
-        <p>Que vous soyez influenceur ou entreprise, découvrons ensemble comment créer des collaborations qui ont du sens.</p>
+        <p>Que vous soyez influenceur ou professionnel, découvrons ensemble comment créer des collaborations qui ont du sens.</p>
         <div class="cta-buttons">
-          <a href="https://wa.me/+33123456789?text=Bonjour%2C%20je%20souhaite%20en%20savoir%20plus%20sur%20vos%20services" class="btn btn-primary" target="_blank">
+          <a href="https://wa.me/+33618937532?text=Bonjour%2C%20je%20souhaite%20en%20savoir%20plus%20sur%20vos%20services" class="btn btn-primary" target="_blank">
             Contactez-nous maintenant
           </a>
           <a href="#contact" class="btn btn-outline">
